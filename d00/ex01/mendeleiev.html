@@ -4,11 +4,15 @@
 	<meta charset="utf-8">
 	<title>Tableau périodique - Mandeleiev</title>
 	<style type="text/css">
+		body {
+			text-align: center;
+		}
 		h1 {
 			text-align: center;
 		}
 		table {
 			border: none;
+			display: inline-block;
 		}
 		td {
 			position: relative;
@@ -52,10 +56,17 @@
 		.non-metaux {background-color: #AB91FF;}
 		.halogenes {background-color: #F991FF;}
 		.gaz-nobles {background-color: #91DFFF;}
+		#mandeleiv {
+			position: absolute;
+			left: 200px;
+			top: 0px;
+			height: 200px;
+		}
 	</style>
 </head>
 <body>
-<h1>Tableau de Dimitri Mendeleiev</h1>
+<div id="content">
+<img id="mandeleiv" alt="Mandeleiv" src="http://www.filosofia.org/enc/ros/img/mendele.png">
 <table>
 	<tr>
 		<td class="non-metaux"><span class="title">H</span><span class="weight">1,00794</span><span class="id">1</span></td>
@@ -201,5 +212,6 @@
 		<td class="actinides"><span class="title">Lr</span><span class="weight">262,110</span><span class="id">103</span></td>
 	</tr>
 </table>
+</div>
 </body>
 </html>
