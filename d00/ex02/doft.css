@@ -57,7 +57,8 @@ body {
 	box-shadow: 10px 10px 10px 0px #000000;
 	margin: 0px 29px;
 	float: left;
-	text-align: center;}
+	text-align: center;
+}
 #center {
 	width: 1020px;
 	height: 580px;
@@ -68,6 +69,11 @@ body {
 	-o-box-shadow: 10px 10px 10px 0px #000000;
 	box-shadow: 10px 10px 10px 0px #000000;
 	display: inline-block;
+}
+#center img {
+    margin: 10px;
+    width: 1000px;
+    height: 560px;
 }
 #col-right {
 	width: 142px;
@@ -80,17 +86,14 @@ body {
 	box-shadow: 10px 10px 10px 0px #000000;
 	margin: 0px 29px;
 	float: right;
-}
-#arrow {
-	margin: 15px 5px 0px 5px;
-	width: 70px;
+	text-align: center;
 }
 #main {
-	margin: 5px;
+	margin: 2px;
 	width: 70px;
 }
 #oeil {
-	margin: 5px;
+	margin: 2px;
 	width: 70px;
 	border-radius: 5px 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px 5px;
@@ -98,10 +101,55 @@ body {
 	border: 5px solid #ff0000;
 }
 #outil {
-	margin: 5px;
+	margin: 2px;
 	width: 70px;
 }
 #chat {
-	margin: s5px;
+	margin: 2px;
 	width: 70px;
+}
+#book, #towel {
+	width: 60px;
+	margin: 2px;
+}
+#book {
+	margin: 15px 5px 10px 5px;
+	width: 70px;
+}
+#arrow {
+	margin: 15px 5px 0px 5px;
+	width: 70px;
+}
+#brick {
+	width: 120px;
+    height: 70px;
+    margin: 0 auto;
+    background: blue;
+    background-image: url("./resources/brick.jpg");
+}
+#box-play {
+	width: 520px;
+	height: 170px;
+	background: #88ff89;
+	border-radius: 10px;
+	-moz-box-shadow: 10px 10px 10px 0px #000000;
+	-webkit-box-shadow: 10px 10px 10px 0px #000000;
+	-o-box-shadow: 10px 10px 10px 0px #000000;
+	box-shadow: 10px 10px 10px 0px #000000;
+	position: absolute;
+	left: -55px;
+	top: 506px;
+	padding: 5px;
+}
+#box-play p {
+	margin-left: 15px;
+    font-family: Geneva;
+    font-size: 18px;
+}
+.bfont {
+    font-size: 30px;
+    font-family: Georgia;
+}
+.shadfont {
+	text-shadow: 5px 5px 5px #ff0000;
 }
