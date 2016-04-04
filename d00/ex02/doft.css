@@ -1,0 +1,107 @@
+body {
+	position:relative;
+	width: 100%;
+	background: #505050;
+	margin: 0px;
+}
+#content {
+	width: 1420px;
+	margin: 20px auto 0px auto;
+	position: relative;
+}
+#header {
+	width: 1420px;
+	height: 136px;
+	background: #909090;
+	margin: 18px auto 0px auto;
+	border-radius: 10px;
+	position: relative;
+	-moz-box-shadow: 10px 10px 10px 0px #000000;
+	-webkit-box-shadow: 10px 10px 10px 0px #000000;
+	-o-box-shadow: 10px 10px 10px 0px #000000;
+	box-shadow: 10px 10px 10px 0px #000000;
+}
+#logo {
+	height: 116px;
+	margin: 10px;
+}
+#close {
+	right: 0px;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	right: 0px;
+	margin: 10px;
+	bottom: 0px;
+}
+#reload {
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	right: 0px;
+	margin: 10px;
+}
+#loupe {
+	position: absolute;
+	right: 30px;
+	top: 10px;
+}
+#col-left {
+	width: 142px;
+	height: 425px;
+	background: #909090;
+	border-radius: 10px;
+	-moz-box-shadow: 10px 10px 10px 0px #000000;
+	-webkit-box-shadow: 10px 10px 10px 0px #000000;
+	-o-box-shadow: 10px 10px 10px 0px #000000;
+	box-shadow: 10px 10px 10px 0px #000000;
+	margin: 0px 29px;
+	float: left;
+	text-align: center;}
+#center {
+	width: 1020px;
+	height: 580px;
+	background: #909090;
+	border-radius: 10px;
+	-moz-box-shadow: 10px 10px 10px 0px #000000;
+	-webkit-box-shadow: 10px 10px 10px 0px #000000;
+	-o-box-shadow: 10px 10px 10px 0px #000000;
+	box-shadow: 10px 10px 10px 0px #000000;
+	display: inline-block;
+}
+#col-right {
+	width: 142px;
+	height: 425px;
+	background: #909090;
+	border-radius: 10px;
+	-moz-box-shadow: 10px 10px 10px 0px #000000;
+	-webkit-box-shadow: 10px 10px 10px 0px #000000;
+	-o-box-shadow: 10px 10px 10px 0px #000000;
+	box-shadow: 10px 10px 10px 0px #000000;
+	margin: 0px 29px;
+	float: right;
+}
+#arrow {
+	margin: 15px 5px 0px 5px;
+	width: 70px;
+}
+#main {
+	margin: 5px;
+	width: 70px;
+}
+#oeil {
+	margin: 5px;
+	width: 70px;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border: 5px solid #ff0000;
+}
+#outil {
+	margin: 5px;
+	width: 70px;
+}
+#chat {
+	margin: s5px;
+	width: 70px;
+}
