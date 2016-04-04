@@ -1,0 +1,86 @@
+body {
+	text-align: center;
+}
+h1 {
+	text-align: center;
+}
+table {
+	border: none;
+	display: inline-block;
+}
+td {
+	position: relative;
+	border: solid 1px #000;
+	width: 5%;
+	height: 50px;
+}
+.no_border {
+	border: none;
+}
+.title {
+	font-size: 150%;
+	display: inline-block;
+	margin: 25% 0 0px;
+	line-height: 0px;
+	text-align: center;
+	width: 100%;
+}
+.weight {
+	position: absolute;
+	top: 0px;
+	right: 2px;
+	font-size: 50%;
+	display: inline-block;
+	text-align: right;
+}
+.id {
+	position: absolute;
+	bottom: 0px;
+	left: 2px;
+	font-size: 50%;
+}
+.metaux-alcalins {background-color: #FFC591;}
+.alcalino-terreux {background-color: #FFDF91;}
+.lanthanides {background-color: #D2FF91;}
+.actinides {background-color: #B8FF91;}
+.metaux-transition {background-color: #ECFF91;}
+.autres-metaux {background-color: #FFF991;}
+.metalloides {background-color: #91FF9E;}
+.non-metaux {background-color: #AB91FF;}
+.halogenes {background-color: #F991FF;}
+.gaz-nobles {background-color: #91DFFF;}
+#mandeleiv {
+	height: 200px;
+}
+@media screen and (min-width: 700px) and (max-width: 900px) {
+	.title {
+		font-size: 100%;
+	}
+	.weight, .id {
+		font-size: 5%;
+	}
+}
+@media screen and (min-width: 0px) and (max-width: 699px) {
+	.weight, .id {
+		font-size: 80%;
+	}
+	.title {
+		font-size: 200%;
+	}
+	#mandeleiv {
+		position: inherit;
+	}
+	table, tbody, tr, td {
+		width: 100%;
+		display: inherit;
+	}
+	td {
+		margin-bottom: 5px;
+	}
+	.no_border {
+		display: none;
+	}
+	.title {
+		   margin: 25px 0px 0px;
+	}
+}
