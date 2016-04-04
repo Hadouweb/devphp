@@ -142,7 +142,7 @@ body {
 	padding: 5px;
 }
 #box-play p {
-	margin: 15px 0px 0px 15px;
+	margin: 5px 0px 0px 15px;
     font-family: Geneva;
     font-size: 18px;
 }
@@ -156,4 +156,21 @@ body {
 #box-play p.italic {
 	 font-style: italic;
 	 margin-top : 0px;
+}
+#box-play input[type=text] {
+    width: 380px;
+    height: 16px;
+    margin-left: 15px;
+    border-style: inset;
+    border-width: 3px;
+}
+#box-play input[type=submit] {
+    width: 76px;
+    height: 23px;
+    border-style: inset;
+    border-width: 1px;
+    background: #f3f1f2;
+    font-family: Arial;
+    font-size: 12px;
+    border-radius: 2px
 }

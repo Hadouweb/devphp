@@ -2,38 +2,46 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>B.A.BA</title>
+	<title>Day of the 42</title>
 	<link rel="stylesheet" media="all" href="./doft.css">
 </head>
 <body>
 <div id="header">
-	<img id="logo" alt="Logo", src="./resources/day_of_the_42.png">
-	<img id="reload" alt="Reload", src="./resources/reload.png">
-	<img id="close" alt="Close", src="./resources/close.gif">
-	<img id="loupe" alt="Loupe", src="./resources/loupe.png">
+	<img id="logo" alt="Logo", title="Logo" src="./resources/day_of_the_42.png">
+	<a href="http://www.disney.com" title="Recommencer au début" target="blank">
+		<img id="reload" alt="Reload", title="Recommencer au début" src="./resources/reload.png">
+	</a>
+	<a href="https://www.relaischateaux.com/" title="Déconnecter" target="blank">
+		<img id="close" alt="Close", title="Déconnecter" src="./resources/close.gif">
+	</a>
+	<img id="loupe" alt="Loupe", title="Logo" src="./resources/loupe.png">
 </div>
 <div id="content">
 	<div id="col-left">
-		<img id="arrow" alt="Arrow", src="./resources/arrow.png">
-		<img id="main" alt="Main", src="./resources/main.png">
-		<img id="oeil" alt="Oeil", src="./resources/oeil.png">
-		<img id="outil" alt="Outil", src="./resources/outil.png">
-		<img id="chat" alt="Chat", src="./resources/chat-icon.png">
+		<img id="arrow" alt="Avancer", title="Avancer" src="./resources/arrow.png">
+		<img id="main" alt="Prendre", title="Prendre" src="./resources/main.png">
+		<img id="oeil" alt="Regarder", title="Regarder" src="./resources/oeil.png">
+		<img id="outil" alt="Utiliser", title="Utiliser" src="./resources/outil.png">
+		<img id="chat" alt="Parler", title="Parler" src="./resources/chat-icon.png">
 	</div>
 	<div id="center">
-		<img id="cluster" alt="Cluster", src="./resources/cluster.jpg">
+		<img id="cluster" alt="Cluster", title="Cluster" src="./resources/cluster.jpg" usemap="#map">
+		<map name="map">
+			<area alt="Ikea" title="Ikea" href="http://www.ikea.com/" shape="rect" coords="303,322,490,576" target="blank">
+			<area alt="Apple" title="Apple" href="http://www.apple.com/" shape="rect" coords="783,293,1024,513" target="blank">
+		</map>
 	</div>
 	<div id="col-right">
-		<img id="book" alt="Book", src="./resources/book.png">
-		<img id="towel" alt="Towel", src="./resources/towel.png">
+		<img id="book" alt="Book", title="Book" src="./resources/book.png">
+		<img id="towel" alt="Towel", title="Towel" src="./resources/towel.png">
 		<div id="brick"></div>
 	</div>
 	<div id="box-play">
 		<p>Vous <span class="bfont">entrez</span> alors dans une grande piece remplie d'<span class="shadfont">ordinateurs</span>...</p>
 		<p class="italic">- Bonjour, vous êtes nouveau ici ?</p>
 		<form action="#">
-  			<input type="text" name="truc"><br>
-		  	<input type="submit" value="Submit">
+  			<input type="text" name="truc">
+		  	<input type="submit" value="Repondre">
 		</form>
 	</div>
 </div>
