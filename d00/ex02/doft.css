@@ -142,7 +142,7 @@ body {
 	padding: 5px;
 }
 #box-play p {
-	margin-left: 15px;
+	margin: 15px 0px 0px 15px;
     font-family: Geneva;
     font-size: 18px;
 }
@@ -152,4 +152,8 @@ body {
 }
 .shadfont {
 	text-shadow: 5px 5px 5px #ff0000;
+}
+#box-play p.italic {
+	 font-style: italic;
+	 margin-top : 0px;
 }
