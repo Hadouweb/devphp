@@ -1,0 +1,54 @@
+#menu, #menu ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-align: center;
+}
+#menu li {
+	display: inline-block;
+	position: relative;
+}
+#menu ul li {
+	display: inherit;
+}
+#menu ul {
+	position: absolute;
+	max-height: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	-moz-transition: .8s all .3s;
+	-webkit-transition: .8s all .3s;
+	transition: .8s all .3s;
+}
+#menu li:hover ul {
+	max-height: 15em;
+}
+#menu li:first-child {
+	background: #FF540D;
+}
+#menu li:last-child {
+	background: #0460D9;
+}
+#menu li:first-child li {
+	background: #FF540D;
+}
+#menu li:last-child li {
+	background: #0460D9;
+}
+#menu li:first-child:hover, #menu li:first-child li:hover {
+	background: #E82C0C;
+}
+#menu li:last-child:hover, #menu li:last-child li:hover {
+	background: #044BD9;
+}
+#menu a{
+	text-decoration: none;
+	display: block;
+	padding: 8px 32px;
+	color: #fff;
+	font-family: arial;
+}
+#menu ul a {
+	padding: 8px 0;
+}
