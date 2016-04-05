@@ -1,12 +1,13 @@
 body {
 	text-align: center;
+	margin: 0 auto;
 }
 h1 {
 	text-align: center;
 }
 table {
 	border: none;
-	display: inline-block;
+	margin: 0 auto;
 }
 td {
 	position: relative;
@@ -52,35 +53,19 @@ td {
 #mandeleiv {
 	height: 200px;
 }
-@media screen and (min-width: 700px) and (max-width: 900px) {
-	.title {
-		font-size: 100%;
-	}
-	.weight, .id {
-		font-size: 5%;
-	}
+#content {
+	width: 100%;
+    margin: 0 auto;
 }
-@media screen and (min-width: 0px) and (max-width: 699px) {
-	.weight, .id {
-		font-size: 80%;
-	}
+@media screen and (min-width: 0px) and (max-width: 1000px) {
 	.title {
-		font-size: 200%;
-	}
-	#mandeleiv {
-		position: inherit;
-	}
-	table, tbody, tr, td {
-		width: 100%;
-		display: inherit;
+		font-size: 1.8vw;
 	}
 	td {
-		margin-bottom: 5px;
+		height: auto;
+		min-height: 40px;
 	}
-	.no_border {
-		display: none;
-	}
-	.title {
-		   margin: 25px 0px 0px;
+	.weight, .id {
+		font-size: 0.5vw;
 	}
 }
