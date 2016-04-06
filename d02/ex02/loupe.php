@@ -1,5 +1,11 @@
 #!/usr/bin/php
 <?php
+function replace_toupper($matches) 
+{
+	$final = preg_replace("/$matches[1]/", strtoupper($matches[1]), $matches[0]);
+	return $final;
+}
+
 if ($argv > 1)
 {
 	@$page = file_get_contents($argv[1]);
@@ -7,15 +13,9 @@ if ($argv > 1)
 		echo "Impossible d'oubrir le fichier\n";
 	else
 	{
-		/*$page = htmlentities($page);
-		$page = explode('&lt;', $page);
-		$page = array_map('html_entity_decode', $page);
-		html_entity_decode($page);
-		var_dump($page);*/
-		$page = preg_replace_callback("/title/", 
-			function ($matches) {
-				return strtoupper($matches[0]);
-			},
+		$pattern = array('!<a[^>]+?>(.*)<!Ui', '/title=\"(.*)\"/Ui');
+		$page = preg_replace_callback($pattern, 
+			"replace_toupper",
 			$page
 		);
 		echo $page;
