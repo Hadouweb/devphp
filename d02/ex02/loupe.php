@@ -2,7 +2,8 @@
 <?php
 function replace_toupper($matches) 
 {
-	$final = preg_replace("/$matches[1]/", strtoupper($matches[1]), $matches[0]);
+	var_dump($matches);
+	//$final = preg_replace("/$matches[1]/", strtoupper($matches[1]), $matches[0]);
 	return $final;
 }
 
@@ -13,7 +14,8 @@ if ($argv > 1)
 		echo "Impossible d'oubrir le fichier\n";
 	else
 	{
-		$pattern = array('!<a[^>]+?>(.*)<!Ui', '/title=\"(.*)\"/Ui');
+		//'/title=\"(.*)\"/Uis'
+		$pattern = array('!<a[^>]*>(.*)</a>!Uis');
 		$page = preg_replace_callback($pattern, 
 			"replace_toupper",
 			$page

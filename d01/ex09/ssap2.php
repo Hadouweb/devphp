@@ -1,45 +1,51 @@
 #!/usr/bin/php
 <?php
-function ft_is_alpha($str)
+function epur_str($str)
 {
-	if ($str[0] >= 'A' && $str[0] <= 'Z' || 
-		$str[0] >= 'a' && $str[0] <= 'z')
-		return (1);
-	else
-		return (0);
+	$str = trim($str, ' ');
+	$tab = explode(' ', $str);
+	$tab = array_filter($tab);
+	foreach($tab as $word)
+		$final .= " ".$word;
+	return trim($final);
 }
 
-if ($argc >= 2)
+$array = array();
+for ($i = 1; $i < $argc; $i++)
+	$array = array_merge($array, explode(' ', epur_str($argv[$i])));
+
+function order_char($c1, $c2)
 {
-	$final = array();
-	foreach ($argv as $key => $arg) {
-		if ($key != 0)
-		{
-			$str = trim($arg);
-			$str = $arg;
-			$tab = explode(' ', $str);
-			$tab = array_filter($tab);
-			foreach($tab as $word)
-				array_push($final, $word);
-		}
-	}
-	$alpha = array();
-	$num = array();
-	$other = array();
-	foreach($final as $word)
-	{
-		if (ft_is_alpha($word))
-			array_push($alpha, $word);
-		else if (is_numeric($word))
-			array_push($num, $word);
-		else
-			array_push($other, $word);
-	}
-	sort($alpha, SORT_STRING | SORT_FLAG_CASE);
-	sort($num, SORT_STRING | SORT_FLAG_CASE);
-	sort($other, SORT_STRING | SORT_FLAG_CASE);
-	$final = array_merge($alpha, $num, $other);
-	foreach ($final as $word)
-		echo "$word\n";
+	if (ctype_alpha($c1) && !ctype_alpha($c2))
+		return -1;
+	if (ctype_alpha($c2) && !ctype_alpha($c1))
+		return 1;
+	if (ctype_alpha($c1) && ctype_alpha($c2))
+		return ord(strtolower($c1)) - ord(strtolower($c2));
+	if (ctype_digit($c1) && !ctype_digit($c2))
+		return -1;
+	if (ctype_digit($c2) && !ctype_digit($c1))
+		return 1;
+	return (ord($c1) - ord($c2));
 }
+
+function order_str($s1, $s2)
+{
+	$i = 0;
+	while (isset($s1[$i]) && isset($s2[$i]))
+	{
+		$cmp_char = order_char($s1[$i], $s2[$i]);
+		if ($cmp_char)
+			return $cmp_char;
+		$i++;
+	}
+	if (isset($s1[$i]) && !isset($s2[$i]))
+		return 1;
+	if (!isset($s1[$i]) && isset($s2[$i]))
+		return -1;
+}
+
+usort($array, 'order_str');
+foreach($array as $mot)
+	echo $mot . "\n";
 ?>
