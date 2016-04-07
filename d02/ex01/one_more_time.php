@@ -49,6 +49,8 @@ function check_time($time)
 if ($argc > 1)
 {
 	$a = explode(' ', $argv[1]);
+	if (count($a) != 5)
+		wrong_format();
 	if (check_day($a[0]) == 0)
 		wrong_format();
 	if (check_day_num($a[1]) == 0)
