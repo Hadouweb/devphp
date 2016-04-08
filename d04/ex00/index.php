@@ -6,8 +6,6 @@
 		$_SESSION['login'] = $_GET['login'];
 		$_SESSION['passwd'] = $_GET['passwd'];
 	}
-	var_dump($_SESSION);
-	var_dump($_GET);
 ?>
 
 <html>
