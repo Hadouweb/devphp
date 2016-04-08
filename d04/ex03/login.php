@@ -15,6 +15,5 @@ if ($_GET['login'] !== NULL && $_GET['passwd'] !== NULL)
 		$_SESSION['loggued_on_user'] = "";
 		echo "ERROR\n";
 	}
-	var_dump($_SESSION);
 }
 ?>
