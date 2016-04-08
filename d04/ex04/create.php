@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 function user_exist($tab, $login)
 {
 	foreach ($tab as $value)
@@ -42,7 +40,7 @@ function ft_create_user($login, $passwd)
 	$tab[] = $user;
 	$data = serialize($tab);
 	@$ret = file_put_contents("../private/passwd", $data);
-	if ($ret === false)
+	if ($ret === FALSE)
 		return FALSE;
 	return TRUE;
 }
@@ -52,7 +50,7 @@ if (check($_POST['login']) && check($_POST['passwd'])
 {
 	if (ft_create_user($_POST['login'], $_POST['passwd']) === TRUE)
 	{
-		header('Location: ./');
+		header("Refresh:1; url=./");
 		echo "OK\n";
 	}
 	else
