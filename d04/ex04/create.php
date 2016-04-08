@@ -18,7 +18,7 @@ function check($str)
 		return 1;
 }
 
-function create_user($login, $passwd)
+function ft_create_user($login, $passwd)
 {
 	if (file_exists("../private") === FALSE)
 	{
@@ -42,7 +42,7 @@ function create_user($login, $passwd)
 	$tab[] = $user;
 	$data = serialize($tab);
 	@$ret = file_put_contents("../private/passwd", $data);
-	if ($ret === FALSE)
+	if ($ret === false)
 		return FALSE;
 	return TRUE;
 }
@@ -50,8 +50,11 @@ function create_user($login, $passwd)
 if (check($_POST['login']) && check($_POST['passwd'])
 	&& ($_POST['submit'] == "OK"))
 {
-	if (create_user($_POST['login'], $_POST['passwd']) === TRUE)
+	if (ft_create_user($_POST['login'], $_POST['passwd']) === TRUE)
+	{
+		header('Location: ./');
 		echo "OK\n";
+	}
 	else
 		echo "ERROR\n";
 }

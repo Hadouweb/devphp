@@ -16,4 +16,6 @@ if ($_GET['login'] !== NULL && $_GET['passwd'] !== NULL)
 		echo "ERROR\n";
 	}
 }
+else
+	echo "ERROR\n";
 ?>

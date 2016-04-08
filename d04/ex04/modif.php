@@ -2,6 +2,12 @@
 
 session_start();
 
+function ft_error()
+{
+	echo "ERROR\n";
+	die();
+}
+
 function user_exist($tab, $login, $oldpwd)
 {
 	foreach ($tab as $key => $value)
@@ -10,7 +16,7 @@ function user_exist($tab, $login, $oldpwd)
 			$value["passwd"] === hash("whirlpool", $oldpwd))
 			return $key;
 	}
-	return FALSE;
+	return -1;
 }
 
 function check($str)
@@ -19,34 +25,24 @@ function check($str)
 		return 1;
 }
 
-function modif_user($login, $oldpw, $newpw)
+if (check($_POST['login']) && check($_POST['oldpw']) &&
+	check($_POST['newpw']) && ($_POST['submit'] == "OK"))
 {
 	@$file = file_get_contents("../private/passwd");
-	if ($file === FALSE)
-		return FALSE;
+	if ($file === false)
+		ft_error();
 	$tab = unserialize($file);
 	$user_id = user_exist($tab, $_POST['login'], $_POST['oldpw']);
-	if ($user_id === FALSE)
-		return FALSE;
+	if ($user_id === -1)
+		ft_error();
 	else
 	{
 		$tab[$user_id]["passwd"] = hash("whirlpool", $_POST['newpw']);
 		$data = serialize($tab);
-		@$ret = file_put_contents("../private/passwd", $data);
-		if ($ret === FALSE)
-			return FALSE;
+		file_put_contents("../private/passwd", $data);
 	}
-	return TRUE;
-}
-
-if (check($_POST['login']) && check($_POST['oldpw']) &&
-	check($_POST['newpw']) && ($_POST['submit'] == "OK"))
-{
-	if (modif_user($_POST['login'], $_POST['oldpw'], $_POST['newpw']) === TRUE)
-		echo "OK\n";
-	else
-		echo "ERROR\n";
+	echo "OK\n";
 }
 else
-	echo "ERROR\n";
+	ft_error();
 ?>
