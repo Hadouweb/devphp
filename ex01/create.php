@@ -35,7 +35,9 @@ if (check($_POST['login']) && check($_POST['passwd'])
 	}
 	if (file_exists("../private/passwd") === TRUE)
 	{
-		$file = file_get_contents("../private/passwd");
+		@$file = file_get_contents("../private/passwd");
+		if ($file === false)
+			ft_error();
 		$tab = unserialize($file);
 		if (user_exist($tab, $_POST['login']) === 0)
 			ft_error();
@@ -46,7 +48,9 @@ if (check($_POST['login']) && check($_POST['passwd'])
 	$user["passwd"] = hash("whirlpool", $_POST['passwd']);
 	$tab[] = $user;
 	$data = serialize($tab);
-	file_put_contents("../private/passwd", $data);
+	@$ret = file_put_contents("../private/passwd", $data);
+	if ($ret === false)
+		ft_error();
 	echo "OK\n";
 }
 else
