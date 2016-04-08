@@ -19,33 +19,35 @@ function user_exist($tab, $login, $oldpwd)
 	return -1;
 }
 
-if (isset($_POST['login']) && isset($_POST['oldpw']) &&
-	isset($_POST['newpw']) && ($_POST['submit'] == "OK"))
+function check($str)
 {
-	if (!empty($_POST['login']) && !empty($_POST['oldpw']) 
-		&& !empty($_POST['newpw']))
+	if ($str !== NULL && $str !== "")
+		return 1;
+}
+
+if (check($_POST['login']) && check($_POST['oldpw']) &&
+	check($_POST['newpw']) && ($_POST['submit'] == "OK"))
+{
+	if (file_exists("../private") === FALSE)
+		ft_error();
+	if (file_exists("../private/passwd") === TRUE)
 	{
-		if (file_exists("./private") === FALSE)
+		$file = file_get_contents("../private/passwd");
+		$tab = unserialize($file);
+		$user_id = user_exist($tab, $_POST['login'], $_POST['oldpw']);
+		if ($user_id === -1)
 			ft_error();
-		if (file_exists("./private/passwd") === TRUE)
-		{
-			$file = file_get_contents("./private/passwd");
-			$tab = unserialize($file);
-			$user_id = user_exist($tab, $_POST['login'], $_POST['oldpw']);
-			if ($user_id === -1)
-				ft_error();
-			else
-			{
-				$tab[$user_id]["passwd"] = hash("whirlpool", $_POST['newpw']);
-				$data = serialize($tab);
-				file_put_contents("./private/passwd", $data);
-			}
-		}
 		else
-			ft_error();
-		echo "OK\n";
+		{
+			$tab[$user_id]["passwd"] = hash("whirlpool", $_POST['newpw']);
+			$data = serialize($tab);
+			file_put_contents("../private/passwd", $data);
+		}
 	}
 	else
 		ft_error();
+	echo "OK\n";
 }
+else
+	ft_error();
 ?>
