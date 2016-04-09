@@ -29,15 +29,19 @@ else
 
 mysqli_close($conn);
 $db = mysqli_connect($servername, $username, $password, $dbname);
+if (mysqli_connect_errno())
+	die("Failed to connect to MySQL: " . mysqli_connect_error(). "<br />");
+else
+	echo "MySql connection successfully<br />";
 mysqli_set_charset($db,"utf8");
 
 // Create user table
 $sql = "CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_type` int NOT NULL,
+  `user_role` int NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `is_logged` BOOLEAN NOT NULL,
+  `password` varchar(2000) NOT NULL,
+  `is_logged` BOOLEAN DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
@@ -94,7 +98,7 @@ $sql = "CREATE TABLE `product` (
   `price` FLOAT(10) NOT NULL,
   `picture` varchar(1000) NOT NULL,
   `category_id` int DEFAULT 0,
-  `date_added` DATE NOT NULL,
+  `date_added` DATETIME NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 if (mysqli_query($db, $sql) === TRUE)
@@ -105,7 +109,7 @@ else
 // _______________________________ INSERT ___________________________________
 
 // Insert Super user Nicolas
-$sql = "INSERT INTO `user` (`user_type`, `username`, `password`, `is_logged`) VALUES 
+$sql = "INSERT INTO `user` (`user_role`, `username`, `password`, `is_logged`) VALUES 
 ('1', 'Nicolas', 'mdp', 0),
 ('1', 'Samuel', 'mdp', 0)";
 if (mysqli_query($db, $sql) === TRUE)
@@ -134,5 +138,5 @@ if (mysqli_query($db, $sql) === TRUE)
 else
     echo "Error inserting products: " . mysqli_error($db) . "<br />";
 
-
+mysqli_close($db);
 ?>
