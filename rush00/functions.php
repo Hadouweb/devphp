@@ -82,8 +82,70 @@ function get_user_by_role($id_role)
 		return FALSE;
 }
 
-$ret = get_all_user();
-while ($row = mysqli_fetch_assoc($ret)) {
-	debug($row);
+function get_user_by_username($username)
+{
+	global $db;
+	$sql = "SELECT * FROM `user` WHERE `username` = $username";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
 }
+
+function set_user($role, $username, $password)
+{
+	global $db;
+	$sql = "INSERT INTO `user` (`user_role`, `username`, `password`) VALUES (?, ?, ?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === false)
+		trigger_error('Statement failed! ' . mysqli_error($db));
+	$bind = mysqli_stmt_bind_param($stmt, "iss", $role, $username, $password);
+	if ($bind === false)
+		trigger_error('Bind param failed!', E_USER_ERROR);
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === false)
+		trigger_error('Statement execute failed! ' . mysqli_stmt_error($stmt));
+	mysqli_stmt_close($stmt);
+}
+
+function set_product($product_name, $product_desc, $stock, $price, $picture, $category_id)
+{
+	global $db;
+	$sql = "INSERT INTO `product` (`product_name`, `product_desc`, `stock`, `price`, `picture`, `category_id`, `date_added`) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === false)
+		trigger_error('Statement failed! ' . mysqli_error($db));
+	$bind = mysqli_stmt_bind_param($stmt, "ssiiss", $product_name, $product_desc, $stock, $price, $picture, $category_id);
+	if ($bind === false)
+		trigger_error('Bind param failed!', E_USER_ERROR);
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === false)
+		trigger_error('Statement execute failed! ' . mysqli_stmt_error($stmt));
+	mysqli_stmt_close($stmt);
+}
+
+function set_category($category_name, $picture)
+{
+	global $db;
+	$sql = "INSERT INTO `category` (`category_name`, `picture`) VALUES (?, ?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === false)
+		trigger_error('Statement failed! ' . mysqli_error($db));
+	$bind = mysqli_stmt_bind_param($stmt, "ss", $category_name, $picture);
+	if ($bind === false)
+		trigger_error('Bind param failed!', E_USER_ERROR);
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === false)
+		trigger_error('Statement execute failed! ' . mysqli_stmt_error($stmt));
+	mysqli_stmt_close($stmt);
+}
+
+$ret = set_category("Name", "image_url");
+//while ($row = mysqli_fetch_assoc($ret)) {
+	debug($ret);
+//}
 ?>
