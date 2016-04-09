@@ -12,19 +12,78 @@ mysqli_set_charset($db, "utf8");
 function debug($data)
 {
 	echo "<pre>";
-	var_dump($data);
+	print_r($data);
 	echo "</pre>";
+}
+
+function get_all_product()
+{
+	global $db;
+	$sql = "SELECT * FROM `product`";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
 }
 
 function get_product_by_category($category_id)
 {
 	global $db;
-	$sql = "SELECT * FROM `product` WHERE `category_id` = 1";
+	$sql = "SELECT * FROM `product` WHERE `category_id` = $category_id";
 	$result = mysqli_query($db, $sql);
-	$result = mysqli_fetch_assoc($result);
 	if ($result !== FALSE)
-		debug($result);
+		return ($result);
+	else
+		return FALSE;
 }
-get_product_by_category(1);
 
+function get_all_category()
+{
+	global $db;
+	$sql = "SELECT * FROM `category`";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+function get_category_by_id($category_id)
+{
+	global $db;
+	$sql = "SELECT * FROM `category` WHERE `id` = $category_id";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+function get_all_user()
+{
+	global $db;
+	$sql = "SELECT * FROM `user`";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+function get_user_by_role($id_role)
+{
+	global $db;
+	$sql = "SELECT * FROM `user` WHERE `user_role` = $id_role";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+$ret = get_all_user();
+while ($row = mysqli_fetch_assoc($ret)) {
+	debug($row);
+}
 ?>
