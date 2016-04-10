@@ -8,7 +8,7 @@
 	}
 ?>
 <div class="content-header">
-	<h1>Commande</h1>
+	<h1>Catégories</h1>
 </div>
 <div class="widget-box sample-widget">
 	<div class="widget-header">

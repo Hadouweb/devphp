@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php
+	session_start();
+	include_once("./functions.php");
+	if (!isset($_SESSION['user']) || $_SESSION['user']['user_role'] !== "1")
+	{
+		//header("Location: /");
+		//die();
+	}
+?>
 <html class="no-js" lang="fr">
 <head>
 	<meta charset="utf-8">
@@ -28,6 +36,10 @@
 			include_once("order.php");
 		else if ($_GET["page"] === "user")
 			include_once("user.php");
+		else if ($_GET["page"] === "category")
+			include_once("category.php");
+		else if ($_GET["page"] === "product")
+			include_once("product.php");
 		else
 		{
 		?>
@@ -45,6 +57,5 @@
 			</div>
 		<?php } ?>
 	</div>
-</section>main.js"></script>
 </body>
 </html>

@@ -1,11 +1,17 @@
 <?php
-	include_once("../functions.php");
+	session_start();
+	include_once("./functions.php");
+	if (!isset($_SESSION['user']) || $_SESSION['user']['user_role'] !== "1")
+	{
+		//header("Location: /");
+		//die();
+	}
 
 	function get_role($num)
 	{
 		if ($num === "1")
 			return ("Admin");
-		else
+		else if ($num === "10")
 			return ("Client");
 	}
 	if (isset($_POST['role']) && isset($_POST['username']) &&
@@ -86,7 +92,7 @@
 				Role:<br>
 				<select name="role">
 					<option value="1">Admin</option>
-					<option value="2">Client</option>
+					<option selected="selected" value="10">Client</option>
 				</select>
 			</div>
 			<div>
@@ -112,8 +118,8 @@
 			<div>
 				Role:<br>
 				<select name="role">
-					<option value="1">Admin</option>
-					<option value="2">Client</option>
+					<option <?php if ($user_edit['user_role'] === 1) {echo "selected='selected'";} ?> value="1">Admin</option>
+					<option <?php if ($user_edit['user_role'] === 10) {echo "selected='selected'";} ?> value="10">Client</option>
 				</select>
 			</div>
 			<div>

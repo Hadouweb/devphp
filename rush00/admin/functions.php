@@ -1,0 +1,244 @@
+<?php
+session_start();
+$servername = "localhost";
+$username = "root";
+$password = "localhost";
+$dbname = "db_rush";
+
+$db = mysqli_connect($servername, $username, $password, $dbname);
+if (mysqli_connect_errno())
+	die("Failed to connect to MySQL: " . mysqli_connect_error(). "<br />");
+mysqli_set_charset($db, "utf8");
+
+function debug($data)
+{
+	echo "<pre>";
+	print_r($data);
+	echo "</pre>";
+}
+
+function get_all_product()
+{
+	global $db;
+	$sql = "SELECT * FROM `product`";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+function get_product_by_category($category_id)
+{
+	global $db;
+	$sql = "SELECT * FROM `product` WHERE `category_id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function get_all_category()
+{
+	global $db;
+	$sql = "SELECT * FROM `category`";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+function get_category_by_id($category_id)
+{
+	global $db;
+	$sql = "SELECT * FROM `category` WHERE `id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function get_all_user()
+{
+	global $db;
+	$sql = "SELECT * FROM `user`";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
+function get_user_by_role($id_role)
+{
+	global $db;
+	$sql = "SELECT * FROM `user` WHERE `user_role` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $id_role);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function get_user_by_id($id_user)
+{
+	global $db;
+	$sql = "SELECT * FROM `user` WHERE `id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $id_user);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function get_user_by_username($username)
+{
+	global $db;
+	$sql = "SELECT * FROM `user` WHERE `username` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "s", $username);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function set_user($user_role, $username, $password)
+{
+	global $db;
+	if ($user_role !== "1" && $user_role !== "10")
+		return FALSE;
+	if ($username === "" || $password === hash("whirlpool", ""))
+		return FALSE;
+	$sql = "INSERT INTO `user` (`user_role`, `username`, `password`) VALUES (?, ?, ?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "iss", $user_role, htmlspecialchars($username), $password);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function set_product($product_name, $product_desc, $stock, $price, $picture, $category_id)
+{
+	global $db;
+	$sql = "INSERT INTO `product` (`product_name`, `product_desc`, `stock`, `price`, `picture`, `category_id`, `date_added`) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "ssiisi", htmlspecialchars($product_name), htmlspecialchars($product_desc, $stock), $price, htmlspecialchars($picture), $category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function set_category($category_name, $picture)
+{
+	global $db;
+	$sql = "INSERT INTO `category` (`category_name`, `picture`) VALUES (?, ?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "ss", htmlspecialchars($category_name), htmlspecialchars($picture));
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function delete_user($user_id)
+{
+	global $db;
+	$sql = "DELETE FROM `user` WHERE `user`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $user_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function update_user($user_role, $username, $password, $user_id)
+{
+	global $db;
+	if ($user_role !== "1" && $user_role !== "10")
+		return FALSE;
+	if ($username === "" || $password === hash("whirlpool", ""))
+		return FALSE;
+	$sql = "UPDATE `user` SET `user_role` = (?), `username` = (?), `password` = (?) WHERE `user`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "issi", $user_role, htmlspecialchars($username), $password, $user_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+//$ret = delete_user(9);
+//while ($row = mysqli_fetch_assoc($ret)) {
+//	debug($ret);
+//}
+?>

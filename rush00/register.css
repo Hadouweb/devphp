@@ -1,0 +1,53 @@
+body
+{
+	background: url("http://www.nerdpix.com/wp-content/uploads/2014/01/Mashup-fond-ecran-geek-nerd-personnages-jeu-video-cartoon-background-sonic.jpg") no-repeat center fixed;
+	background-size:cover;
+	margin: 0;
+	padding: 0;
+}
+
+
+.erreur
+{
+	text-align: center;
+	position: absolute;
+	margin-top: 40vh;
+	margin-left: 35%;
+	width: 20vw;
+	height: auto;
+	border-style: solid;
+	border-color: black;
+	border-radius: 20px;
+	background-color: black;
+	color: white;
+}
+
+.gauche
+{
+	text-align: center;
+	position: absolute;
+	margin-top: 50vh;
+	margin-left: 25%;
+	width: 20vw;
+	height: auto;
+	border-style: solid;
+	border-color: black;
+	border-radius: 20px;
+	background-color: black;
+	color: white;
+}
+
+.droite
+{
+	text-align: center;
+	position: absolute;
+	margin-left: 50%;
+	margin-top: 50vh;
+	width: 20vw;
+	height: auto;
+	border-style: solid;
+	border-color: black;
+	border-radius: 20px;
+	background-color: black;
+	color: white;
+}
