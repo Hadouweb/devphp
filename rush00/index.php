@@ -1,10 +1,47 @@
 <?php
 	session_start();
+	include_once("./admin/functions.php");
 	// print_r($_SESSION);
 	if ($_SESSION["error"])
 	{
 		echo "<div class=erreur>".$_SESSION["error"]."</div>";
 		$_SESSION["error"] = "";
+	}
+	if (check($_GET['order']))
+	{
+		if ($_SESSION['user'])
+			set_order($_GET['order'], 1, $_SESSION['user']['id'], 0);
+		else
+		{
+			$tmp_user = array();
+			$tmp_user['user_role'] = "10";
+			$tmp_user['username'] = "tmpuser".session_id();
+			$tmp_user['password'] = hash("whirlpool", "hsdfjahfja");
+			set_user($tmp_user['user_role'],$tmp_user['username'], $tmp_user['password']);
+			$user = get_user_by_username($tmp_user['username']);
+			$_SESSION['tmp_user'] = mysqli_fetch_assoc($user);
+			set_order($_GET['order'], 1, $_SESSION['tmp_user']['id']);
+			//debug($_SESSION['tmp_user']);
+		}
+		
+		//debug($_SESSION);
+	}
+	if (check($_GET['del_order']))
+	{
+		$order = mysqli_fetch_assoc(get_order_by_id($_GET['del_order']));
+		if (isset($_SESSION['tmp_user']['id']) && $order['user_id'] === $_SESSION['tmp_user']['id'])
+			delete_order($_GET['del_order']);
+		else if (isset($_SESSION['user']['id']) && $order['user_id'] == $_SESSION['user']['id'])
+			delete_order($_GET['del_order']);
+	}
+	if (check($_GET['valid_order']))
+	{
+		$ret = get_order_by_user_id($_SESSION["user"]["id"]);
+		while ($row = mysqli_fetch_assoc($ret))
+		{
+			update_order($row['product_id'], $row['quantity'], 1, $row['id']);
+			header("Location: /");
+		}
 	}
 	//var_dump($_SESSION);
 ?>
@@ -31,7 +68,11 @@
 				<?php include("articles.php"); ?>
 			</div>
 			<div class="col1-3 panier box-shadow">
-				<?php include("panier.php");?>
+				<?php include("login.php"); ?>
+			</div>
+			<div class="col1-3 panier box-shadow">
+				<p style="color:white;">Panier</p>
+				<?php include("panier.php"); ?>
 			</div>
 		</div>
 	</div>

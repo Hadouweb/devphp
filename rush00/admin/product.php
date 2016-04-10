@@ -15,7 +15,7 @@
 		$ret = set_product($_POST['product_name'], 
 			$_POST['product_desc'], 
 			intval($_POST['stock']), 
-			floatval($_POST['price']), 
+			$_POST['price'], 
 			$_POST['picture'], 
 			intval($_POST['category_id']));
 		if ($ret !== FALSE)
@@ -40,7 +40,7 @@
 		$ret = update_product($_POST['product_name'], 
 			$_POST['product_desc'], 
 			intval($_POST['stock']), 
-			floatval($_POST['price']), 
+			$_POST['price'], 
 			$_POST['picture'], 
 			intval($_POST['category_id']),
 			$_GET['product_edit']);

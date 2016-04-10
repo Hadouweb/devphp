@@ -21,6 +21,32 @@ h1{
     background: #279BE4;
     text-decoration: none;
 }
+.product-panier .content {
+	width:140px;
+	float: left;
+	margin:5px;
+}
+.product-panier {
+	height: 100px;
+	width: 100%;
+	border-bottom: 1px solid black;
+}
+.product-panier {
+	color: white;
+}
+.product-panier span {
+	display: block;
+}
+.product-panier .titre {
+    font-size: 0.8vh;
+    display: block;
+    height: 10px;
+}
+.product-panier img {
+	width:90px;
+	float: left;
+	margin:5px;
+}
 .button:hover {
   background: #2A2D33;
   cursor: pointer;
@@ -35,9 +61,13 @@ h1{
 .product h4 {
 	    font-size: 22px;
     text-align: center;
+    min-height: 55px;
 }
 .product img {
 	
+}
+.product .description {
+	min-height: 100px;
 }
 .product .price {
 	float: right;
@@ -102,6 +132,7 @@ box-shadow: 0px 0px 10px #000000;
 }
 div.col1-3
 {
+	margin:5px;
 	float: left;
 }
 #content {

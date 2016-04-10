@@ -1,28 +1,62 @@
 <?php
-	session_start();
-	echo "<header class=head>";
-	if (isset($_SESSION["user"]) && $_SESSION["user"]["user_role"] === "1")
-		echo "<a href=/admin>Administration</a><br />";
-	if ($_SESSION && !$_SESSION["logged_on_user"])
+	//header("Location: index.php");
+	include_once("./admin/functions.php");
+	$total = 0;
+	if ($_SESSION["user"] && ($ret = get_order_by_user_id($_SESSION["user"]["id"])) !== FALSE)
 	{
-		echo "<form method=POST action=connect.php>";
-		echo "id<input type=text name=login><br/>";
-		echo "mdp<input type=password name=pwd><br/>";
-		echo "<input type=submit name=submit value=connect>";
-		echo "<a href=create.php>mdp oublié</a>";
-		echo "</form>";
+		while ($row = mysqli_fetch_assoc($ret))
+		{
+			if ($row['valid_order'] !== 1)
+			{
+				if (($art = get_product_by_id($row["product_id"])) !== FALSE)
+				{
+					while ($res = mysqli_fetch_assoc($art))
+					{
+						$total += floatval($res['price']);
+					?>
+					<div class="product-panier">
+						<div class="content">
+							<span class="titre"><?php echo $res['product_name']; ?></span><br/>
+							<span class="quantity">Quantité : <?php echo $row['quantity']; ?></span>
+							<span class="price">Prix : <?php echo $res['price']; ?></span>
+							<span class="suppr"><a href="?del_order=<?php echo $row['id']; ?>">Supprimer</a></span>
+						</div>
+						<img alt="<?php echo ft_format($res['product_name']); ?>" 
+						src="<?php echo $res['picture']; ?>">
+					</div>
+					<?php
+					}
+				}
+			}
+		}
+		echo "<a class='button' href='?valid_order=1'>Valider le panier</a>";
 	}
 	else
 	{
-		echo "nombre d'articles : 5<br/>";
-		echo "prix : 95balles bordel!!!";
-		echo "<form method=POST action=deconnect.php>";
-		echo "<input type=submit name=submit value=deconnect>";
-		echo "</form>";
+		$ret = get_order_by_user_id($_SESSION['tmp_user']['id']);
+		while ($row = mysqli_fetch_assoc($ret))
+		{
+			if (($art = get_product_by_id($row["product_id"])) !== FALSE)
+			{
+				while ($res = mysqli_fetch_assoc($art))
+				{
+					$total += floatval($res['price']);
+					//debug($res);
+				?>
+				<div class="product-panier">
+					<div class="content">
+						<span class="titre"><?php echo $res['product_name']; ?></span><br/>
+						<span class="quantity">Quantité : <?php echo $row['quantity']; ?></span>
+						<span class="price">Prix : <?php echo $res['price']; ?></span>
+						<span class="suppr"><a href="?del_order=<?php echo $row['id']; ?>">Supprimer</a></span>
+					</div>
+					<img alt="<?php echo ft_format($res['product_name']); ?>" 
+					src="<?php echo $res['picture']; ?>">
+				</div>
+				<?php
+				}
+			}
+		}
 	}
-	echo "</header>";
-	$tab = array("na" => "ok", "a" => "pan", "nae" => "ier");
-	foreach ($tab as $key => $value) {
-		echo "$value<br/>";
-	}
+	echo "<div>TOTAL : $total</div>";
 ?>

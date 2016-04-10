@@ -20,6 +20,7 @@ else
 if (check($products))
 {
 	foreach($products as $row) {
+		$url = http_build_query(array_merge($_GET, array('order' => $row['id'])));
 	?>
 	<div class="product">
 		<h4><?php echo $row['product_name']; ?></h4>
@@ -38,7 +39,7 @@ if (check($products))
 				<span class="price">Prix: <?php echo ft_format($row['price']); ?> €</span><br />
 			</div>
 			<div class="info-product">
-				<a class="button" href='#' >Commander</a>
+				<a class="button" href='?<?php echo $url; ?>' >Commander</a>
 			</div>
 		</div>
 	</div>

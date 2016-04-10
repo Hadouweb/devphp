@@ -1,18 +1,19 @@
 <?php
 	session_start();
-	header("Location:index.php");
+	//header("Location:index.php");
 	include_once("./admin/functions.php");
-	if ($_POST && $_POST["login"] && $_POST["pwd"] && $_POST["submit"] && $_POST["submit"] == "connect")
+	if ($_POST && $_POST["login"] && $_POST["pwd"] && $_POST["submit"] && $_POST["submit"] == "Connexion")
 	{
 		if ($res = get_all_user())
 		{
 			while ($row = mysqli_fetch_assoc($res)) 
 			{
-				if ($row["username"] == $_POST["login"] && $row["password"] == $_POST["pwd"])
+				$pwd = hash("whirlpool", $_POST["pwd"]);
+				if ($row["username"] == $_POST["login"] && $row["password"] == $pwd)
 				{
 					$_SESSION["logged_on_user"] = $row["username"];
 					$_SESSION["user"] = $row;
-					print_r($_SESSION);
+					$_SESSION["tmp_user"] = "";
 					break;
 				}
 			}
@@ -22,6 +23,7 @@
 		else
 			$_SESSION["error"] = "mauvais identifiant";
 	}
-	else if ($_POST["submit"] == "connect")
+	else if ($_POST["submit"] == "Connexion")
 		$_SESSION["error"] = "champ(s) vide(s)";
+	header("Location:index.php");
 ?>

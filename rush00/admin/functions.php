@@ -53,6 +53,44 @@ function get_all_product_category_name()
 		return FALSE;
 }
 
+function get_order_by_user_id($user_id)
+{
+	global $db;
+	$sql = "SELECT * FROM `order` WHERE `user_id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $user_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function get_order_by_id($order_id)
+{
+	global $db;
+	$sql = "SELECT * FROM `order` WHERE `id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $order_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
 function get_product_by_category($category_id)
 {
 	global $db;
@@ -188,6 +226,61 @@ function get_user_by_username($username)
 	return $result;
 }
 
+function set_order($product_id, $quantity, $user_id)
+{
+	global $db;
+	$sql = "INSERT INTO `order` (`product_id`, `quantity`, `user_id`) VALUES (?, ?, ?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "iii", $product_id, $quantity, $user_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function update_order($product_id, $quantity, $valid_order, $order_id)
+{
+	global $db;
+	$sql = "UPDATE `order` SET `product_id` = (?), `quantity` = (?), `valid_order` = (?) WHERE `order`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "iiii", $product_id, $quantity, $valid_order, $order_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function update_product($product_name, $product_desc, $stock, $price, $picture, $category_id, $product_id)
+{
+	global $db;
+	$sql = "UPDATE `product` SET 
+	`product_name` = (?), `product_desc` = (?), `stock` = (?), `price` = (?),
+	`picture` = (?), `category_id` = (?) WHERE `product`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "ssissii",
+		htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, htmlspecialchars($price),
+		$picture, $category_id, $product_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
 function set_user($user_role, $username, $password)
 {
 	global $db;
@@ -217,7 +310,8 @@ function set_product($product_name, $product_desc, $stock, $price, $picture, $ca
 
 	if ($stmt === FALSE)
 		return FALSE;
-	$bind = mysqli_stmt_bind_param($stmt, "ssiisi", htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, $price, htmlspecialchars($picture), $category_id);
+	$bind = mysqli_stmt_bind_param($stmt, "ssissi", htmlspecialchars($product_name),
+		htmlspecialchars($product_desc), $stock, htmlspecialchars($price), htmlspecialchars($picture), $category_id);
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);
@@ -226,26 +320,6 @@ function set_product($product_name, $product_desc, $stock, $price, $picture, $ca
 	mysqli_stmt_close($stmt);
 }
 
-function update_product($product_name, $product_desc, $stock, $price, $picture, $category_id, $product_id)
-{
-	global $db;
-	$sql = "UPDATE `product` SET 
-	`product_name` = (?), `product_desc` = (?), `stock` = (?), `price` = (?),
-	`picture` = (?), `category_id` = (?) WHERE `product`.`id` = (?)";
-	$stmt = mysqli_prepare($db, $sql);
-
-	if ($stmt === FALSE)
-		return FALSE;
-	$bind = mysqli_stmt_bind_param($stmt, "ssiisii",
-		htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, $price,
-		$picture, $category_id, $product_id);
-	if ($bind === FALSE)
-		return FALSE;
-	$exec = mysqli_stmt_execute($stmt);
-	if ($exec === FALSE)
-		return FALSE;
-	mysqli_stmt_close($stmt);
-}
 
 function delete_product($product_id)
 {
@@ -256,6 +330,23 @@ function delete_product($product_id)
 	if ($stmt === FALSE)
 		return FALSE;
 	$bind = mysqli_stmt_bind_param($stmt, "i", $product_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function delete_order($order_id)
+{
+	global $db;
+	$sql = "DELETE FROM `order` WHERE `order`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $order_id);
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);

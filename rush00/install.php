@@ -55,25 +55,13 @@ $sql = "CREATE TABLE `order` (
   `product_id` int NOT NULL,
   `quantity` int NOT NULL,
   `user_id` int NOT NULL,
+  `valid_order` int DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 if (mysqli_query($db, $sql) === TRUE)
     echo "Order table created successfully<br />";
 else
     echo "Error creating order table: " . mysqli_error($db) . "<br />";
-
-// Create order detail table
-/*$sql = "CREATE TABLE `order_detail` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` text NOT NULL,
-  `quantity` text NOT NULL,
-  `price` FLOAT(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-if (mysqli_query($db, $sql) === TRUE)
-    echo "Order table created successfully<br />";
-else
-    echo "Error creating order detail table: " . mysqli_error($db) . "<br />";*/
 
 // Category table
 $sql = "CREATE TABLE `category` (
@@ -107,14 +95,24 @@ else
 
 // _______________________________ INSERT ___________________________________
 
-// Insert Super user Nicolas
-$sql = "INSERT INTO `user` (`user_role`, `username`, `password`, `is_logged`) VALUES 
-('1', 'Nicolas', 'mdp', 0),
-('1', 'Samuel', 'mdp', 0)";
+// Insert Super user
+$mdp = hash("whirlpool", "mdp");
+$sql = "INSERT INTO `user` (`user_role`, `username`, `password`) VALUES 
+('1', 'Nicolas', '$mdp'),
+('1', 'Samuel', '$mdp')";
 if (mysqli_query($db, $sql) === TRUE)
     echo "Super user inserted successfully<br />";
 else
     echo "Error creating Super user: " . mysqli_error($db) . "<br />";
+
+// Insert Order 
+$sql = "INSERT INTO `order` (`id`, `product_id`, `quantity`, `user_id`) VALUES 
+(NULL, '1', '10', '1'),
+(NULL, '1', '10', '2');";
+if (mysqli_query($db, $sql) === TRUE)
+    echo "Order inserted successfully<br />";
+else
+    echo "Error creating order: " . mysqli_error($db) . "<br />";
 
 // Insert Category
 $sql = "INSERT INTO `category` (`category_name`, `picture`) VALUES
@@ -130,7 +128,14 @@ else
 // Insert Product
 $sql = "INSERT INTO `product` (`product_name`, `product_desc`, `stock`, `price`, `picture`, `category_id`, `date_added`) VALUES
 ('UNCHARTED THE NATHAN DRAKE COLLECTION', 'Les trois premiers épisodes de la saga Uncharted sont là dans une version remasterisée en 1080p / 60 fps.', '10', '39.99', 'http://www.gamer-network.fr/wp-content/uploads/2015/08/Uncharted-The-Nathan-Drake-Collection-trois-modes-de-jeu-Image-2.png', '1', '2016-04-09'),
-('STAR WARS BATTLEFRONT', 'La force est avec DICE', '10', '49.99', 'https://media.starwars.ea.com/content/starwars-ea-com/fr_FR/starwars/battlefront/_jcr_content/ogimage.img.jpeg', '1', '2016-04-09')";
+('STAR WARS BATTLEFRONT', 'La force est avec DICE', '10', '49.99', 'https://media.starwars.ea.com/content/starwars-ea-com/fr_FR/starwars/battlefront/_jcr_content/ogimage.img.jpeg', '1', '2016-04-09'),
+('DARK SOUL III', 'Plongez dans les ténèbres avec des éditions de haute volée pour DARK SOULS III !', '50', '54.99', 'http://www.gamer-network.fr/wp-content/uploads/2015/10/Dark_souls_III.png', '1', '2016-04-10'),
+('DARK SOUL III', 'Plongez dans les ténèbres avec des éditions de haute volée pour DARK SOULS III !', '50', '54.99', 'http://www.gamer-network.fr/wp-content/uploads/2015/10/Dark_souls_III.png', '2', '2016-04-10'),
+('DARK SOUL III', 'Plongez dans les ténèbres avec des éditions de haute volée pour DARK SOULS III !', '50', '54.99', 'http://www.gamer-network.fr/wp-content/uploads/2015/10/Dark_souls_III.png', '4', '2016-04-10'),
+('SUPER MARIO MAKER', '', '3', '44.99', 'http://cdn03.nintendo-europe.com/media/images/10_share_images/games_15/wiiu_14/SI_WiiU_SuperMarioMaker_v01.jpg', '3', '2016-04-10'),
+('XENOBLADE CHONICLES X','Découvrez les secrets de votre nouvelle planète et battez-vous pour l avenir de l humanité dans Xenoblade Chronicles X, en exclusivité sur Wii U', '20', '44.99', 'http://game-focus.com/images/screenshots/X/xenoblade-chronicles-x/Xeno1.png', '3', '2016-04-10'),
+('STAR WARS BATTLEFRONT', 'La force est avec DICE', '10', '49.99', 'https://media.starwars.ea.com/content/starwars-ea-com/fr_FR/starwars/battlefront/_jcr_content/ogimage.img.jpeg', '2', '2016-04-09'),
+('XCOM2', 'XCOM 2 est la suite de XCOM: Enemy Unknown, le jeu de stratégie à succès.', '4', '34.99', 'http://www.journaldugamer.com/files/2016/01/xcom2.jpg', '4', '2016-04-10')";
 if (mysqli_query($db, $sql) === TRUE)
     echo "Products inserted successfully<br />";
 else
