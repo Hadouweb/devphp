@@ -17,6 +17,20 @@ function debug($data)
 	echo "</pre>";
 }
 
+function ft_format($str)
+{
+	$str = str_replace(' ', '-', $str);
+	return (strtolower($str));
+}
+
+function check($str)
+{
+	if (isset($str) && $str !== "")
+		return TRUE;
+	else
+		return FALSE;
+}
+
 function get_all_product()
 {
 	global $db;

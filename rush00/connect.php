@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	header("Location:index.php");
-	include_once("functions.php");
+	include_once("./admin/functions.php");
 	if ($_POST && $_POST["login"] && $_POST["pwd"] && $_POST["submit"] && $_POST["submit"] == "connect")
 	{
 		if ($res = get_all_user())

@@ -6,13 +6,7 @@
 		header("Location: /");
 		die();
 	}
-	function check($str)
-	{
-		if (isset($str) && $str !== "")
-			return TRUE;
-		else
-			return FALSE;
-	}
+
 	if (check($_POST['product_name']) && check($_POST['stock']) &&
 		check($_POST['price']) && check($_POST['category_id']) &&
 		check($_POST['product_desc']) && check($_POST['picture']) &&
