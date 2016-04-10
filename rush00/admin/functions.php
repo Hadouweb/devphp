@@ -224,7 +224,7 @@ function update_product($product_name, $product_desc, $stock, $price, $picture, 
 		return FALSE;
 	$bind = mysqli_stmt_bind_param($stmt, "ssiisii",
 		htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, $price,
-		htmlspecialchars($picture), $category_id, $product_id);
+		$picture, $category_id, $product_id);
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);

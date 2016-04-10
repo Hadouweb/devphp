@@ -168,7 +168,7 @@
 		<?php
 			while ($row = mysqli_fetch_assoc($products)) {
 				echo "<tr>
-				<td width=50px><img alt='" . $row['product_name'] . "' src=" . $row['picture'] . "/></td>
+				<td width=50px><img alt='" . $row['product_name'] . "' src='" . $row['picture'] . "'/></td>
 				<td>" . $row['product_name'] . "</td> 
 				<td>" . $row['product_desc'] . "</td>
 				<td>" . $row['stock'] . "</td>
