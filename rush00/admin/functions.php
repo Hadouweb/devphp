@@ -28,6 +28,17 @@ function get_all_product()
 		return FALSE;
 }
 
+function get_all_product_category_name()
+{
+	global $db;
+	$sql = "SELECT product.*, category.category_name FROM `product` LEFT JOIN `category` on product.category_id = category.id";
+	$result = mysqli_query($db, $sql);
+	if ($result !== FALSE)
+		return ($result);
+	else
+		return FALSE;
+}
+
 function get_product_by_category($category_id)
 {
 	global $db;
@@ -37,6 +48,25 @@ function get_product_by_category($category_id)
 	if ($stmt === FALSE)
 		return FALSE;
 	$bind = mysqli_stmt_bind_param($stmt, "i", $category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_stmt_close($stmt);
+	return $result;
+}
+
+function get_product_by_id($product_id)
+{
+	global $db;
+	$sql = "SELECT * FROM `product` WHERE `id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $product_id);
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);
@@ -173,7 +203,45 @@ function set_product($product_name, $product_desc, $stock, $price, $picture, $ca
 
 	if ($stmt === FALSE)
 		return FALSE;
-	$bind = mysqli_stmt_bind_param($stmt, "ssiisi", htmlspecialchars($product_name), htmlspecialchars($product_desc, $stock), $price, htmlspecialchars($picture), $category_id);
+	$bind = mysqli_stmt_bind_param($stmt, "ssiisi", htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, $price, htmlspecialchars($picture), $category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function update_product($product_name, $product_desc, $stock, $price, $picture, $category_id, $product_id)
+{
+	global $db;
+	$sql = "UPDATE `product` SET 
+	`product_name` = (?), `product_desc` = (?), `stock` = (?), `price` = (?),
+	`picture` = (?), `category_id` = (?) WHERE `product`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "ssiisii",
+		htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, $price,
+		htmlspecialchars($picture), $category_id, $product_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function delete_product($product_id)
+{
+	global $db;
+	$sql = "DELETE FROM `product` WHERE `product`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $product_id);
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);

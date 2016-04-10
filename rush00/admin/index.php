@@ -3,8 +3,8 @@
 	include_once("./functions.php");
 	if (!isset($_SESSION['user']) || $_SESSION['user']['user_role'] !== "1")
 	{
-		//header("Location: /");
-		//die();
+		header("Location: /");
+		die();
 	}
 ?>
 <html class="no-js" lang="fr">
@@ -26,6 +26,7 @@
 			<li <?php if ($_GET['page'] === "category") {echo "class='active'";} ?>><a href="/admin?page=category"><i class="fa fa-desktop"></i>Catégories</a></li>
 			<li <?php if ($_GET['page'] === "product") {echo "class='active'";} ?>><a href="/admin?page=product"><i class="fa fa-usd"></i>Produits</a></li>
 			<li <?php if ($_GET['page'] === "user") {echo "class='active'";} ?>><a href="/admin?page=user"><i class="fa fa-pencil-square-o"></i>Utilisateurs</a></li>
+			<li><a href="/"><i class="fa fa-pencil-square-o"></i>Boutique</a></li>
 		</ul>
 	</div>
 </section>

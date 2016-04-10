@@ -5,6 +5,18 @@ table {
 thead {
   background: #E9EEF4;
 }
+div.col1-4
+{
+  width: 24%;
+}
+textarea {
+    width: 100%;
+    height: 100px;
+}
+div.col1-2
+{
+  width: 49%;
+}
 .button {
     display: block;
     margin-top: 20px;
