@@ -215,7 +215,7 @@ function get_user_by_username($username)
 
 	if ($stmt === FALSE)
 		return FALSE;
-	$bind = mysqli_stmt_bind_param($stmt, "s", $username);
+	$bind = mysqli_stmt_bind_param($stmt, "s", htmlspecialchars($username));
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);
@@ -270,9 +270,9 @@ function update_product($product_name, $product_desc, $stock, $price, $picture, 
 
 	if ($stmt === FALSE)
 		return FALSE;
-	$bind = mysqli_stmt_bind_param($stmt, "ssissii",
+	$bind = mysqli_stmt_bind_param($stmt, "ssisssi",
 		htmlspecialchars($product_name), htmlspecialchars($product_desc), $stock, htmlspecialchars($price),
-		$picture, $category_id, $product_id);
+		htmlspecialchars($picture), htmlspecialchars($category_id), $product_id);
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);
@@ -310,8 +310,9 @@ function set_product($product_name, $product_desc, $stock, $price, $picture, $ca
 
 	if ($stmt === FALSE)
 		return FALSE;
-	$bind = mysqli_stmt_bind_param($stmt, "ssissi", htmlspecialchars($product_name),
-		htmlspecialchars($product_desc), $stock, htmlspecialchars($price), htmlspecialchars($picture), $category_id);
+	$bind = mysqli_stmt_bind_param($stmt, "ssisss", htmlspecialchars($product_name),
+		htmlspecialchars($product_desc), $stock, htmlspecialchars($price), htmlspecialchars($picture), 
+		htmlspecialchars($category_id));
 	if ($bind === FALSE)
 		return FALSE;
 	$exec = mysqli_stmt_execute($stmt);
@@ -372,6 +373,41 @@ function set_category($category_name, $picture)
 	mysqli_stmt_close($stmt);
 }
 
+function update_category($category_name, $picture, $category_id)
+{
+	global $db;
+	$sql = "UPDATE `category` SET `category_name` = (?), `picture` = (?) WHERE `category`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "ssi", htmlspecialchars($category_name), htmlspecialchars($picture), 
+		$category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
+function delete_category($category_id)
+{
+	global $db;
+	$sql = "DELETE FROM `category` WHERE `category`.`id` = (?)";
+	$stmt = mysqli_prepare($db, $sql);
+
+	if ($stmt === FALSE)
+		return FALSE;
+	$bind = mysqli_stmt_bind_param($stmt, "i", $category_id);
+	if ($bind === FALSE)
+		return FALSE;
+	$exec = mysqli_stmt_execute($stmt);
+	if ($exec === FALSE)
+		return FALSE;
+	mysqli_stmt_close($stmt);
+}
+
 function delete_user($user_id)
 {
 	global $db;
@@ -392,7 +428,7 @@ function delete_user($user_id)
 function update_user($user_role, $username, $password, $user_id)
 {
 	global $db;
-	if ($user_role !== "1" && $user_role !== "10")
+	if ($user_role != "1" && $user_role != "10")
 		return FALSE;
 	if ($username === "" || $password === hash("whirlpool", ""))
 		return FALSE;
@@ -409,6 +445,8 @@ function update_user($user_role, $username, $password, $user_id)
 		return FALSE;
 	mysqli_stmt_close($stmt);
 }
+
+
 
 //$ret = delete_user(9);
 //while ($row = mysqli_fetch_assoc($ret)) {

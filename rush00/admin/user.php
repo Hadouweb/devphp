@@ -1,10 +1,10 @@
 <?php
 	session_start();
 	include_once("./functions.php");
-	if (!isset($_SESSION['user']) || $_SESSION['user']['user_role'] !== "1")
+	if (!check($_SESSION['user']) || $_SESSION['user']['user_role'] !== "1")
 	{
-		//header("Location: /");
-		//die();
+		header("Location: /");
+		die();
 	}
 
 	function get_role($num)
@@ -14,8 +14,8 @@
 		else if ($num === "10")
 			return ("Client");
 	}
-	if (isset($_POST['role']) && isset($_POST['username']) &&
-		isset($_POST['password']) && $_POST['envoyer'] === "Envoyer")
+	if (check($_POST['role']) && check($_POST['username']) &&
+		check($_POST['password']) && $_POST['envoyer'] === "Envoyer")
 	{
 		$ret = set_user($_POST['role'], $_POST['username'], hash("whirlpool", $_POST['password']));
 		if ($ret !== FALSE)
@@ -23,8 +23,8 @@
 		else
 			$msg = "Echec de l'ajout de l'utilisateur";
 	}
-	if (isset($_POST['role']) && isset($_POST['username']) &&
-		isset($_POST['password']) && isset($_GET['user_edit']) && $_POST['send_edit'] === "Envoyer")
+	if (check($_POST['role']) && check($_POST['username']) &&
+		check($_POST['password']) && check($_GET['user_edit']) && $_POST['send_edit'] === "Envoyer")
 	{
 		if ($_POST['password'] === "")
 		{
@@ -39,12 +39,12 @@
 		else
 			$msg = "Echec de la modification de l'utilisateur";
 	}
-	if (isset($_GET['user_edit']) && !isset($_POST['send_edit']))
+	if (check($_GET['user_edit']) && !check($_POST['send_edit']))
 	{
 		$user_edit = mysqli_fetch_assoc(get_user_by_id($_GET['user_edit']));
 		$edit_mode = TRUE;
 	}
-	if (isset($_GET['user_delete']))
+	if (check($_GET['user_delete']))
 	{
 		//If user is admin
 		$ret = delete_user($_GET['user_delete']);

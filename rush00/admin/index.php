@@ -21,10 +21,8 @@
 <section id="sidebar"> 
 	<div id="sidebar-nav">   
 		<ul>
-			<li <?php if (!isset($_GET['page'])) {echo "class='active'";} ?> ><a href="/admin"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
-			<li <?php if ($_GET['page'] === "order") {echo "class='active'";} ?>><a href="/admin?page=order"><i class="fa fa-desktop"></i>Commandes</a></li>
 			<li <?php if ($_GET['page'] === "category") {echo "class='active'";} ?>><a href="/admin?page=category"><i class="fa fa-desktop"></i>Catégories</a></li>
-			<li <?php if ($_GET['page'] === "product") {echo "class='active'";} ?>><a href="/admin?page=product"><i class="fa fa-usd"></i>Produits</a></li>
+			<li <?php if (!isset($_GET['page']) || $_GET['page'] === "product") {echo "class='active'";} ?>><a href="/admin?page=product"><i class="fa fa-usd"></i>Produits</a></li>
 			<li <?php if ($_GET['page'] === "user") {echo "class='active'";} ?>><a href="/admin?page=user"><i class="fa fa-pencil-square-o"></i>Utilisateurs</a></li>
 			<li><a href="/"><i class="fa fa-pencil-square-o"></i>Boutique</a></li>
 		</ul>
@@ -42,21 +40,8 @@
 		else if ($_GET["page"] === "product")
 			include_once("product.php");
 		else
-		{
+			include_once("product.php");
 		?>
-			<div class="content-header">
-				<h1>Tableau de bord</h1>
-			</div>
-			<div class="widget-box sample-widget">
-				<div class="widget-header">
-					<h2>Widget Header</h2>
-					<i class="fa fa-cog"></i>
-				</div>
-				<div class="widget-content">
-					<p>bla bla </p>
-				</div>
-			</div>
-		<?php } ?>
 	</div>
 </body>
 </html>

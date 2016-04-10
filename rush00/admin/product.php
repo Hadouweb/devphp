@@ -17,7 +17,7 @@
 			intval($_POST['stock']), 
 			$_POST['price'], 
 			$_POST['picture'], 
-			intval($_POST['category_id']));
+			$_POST['category_id']);
 		if ($ret !== FALSE)
 			$msg = "Produit ajouté avec succès";
 		else
@@ -42,7 +42,7 @@
 			intval($_POST['stock']), 
 			$_POST['price'], 
 			$_POST['picture'], 
-			intval($_POST['category_id']),
+			$_POST['category_id'],
 			$_GET['product_edit']);
 		if ($ret !== FALSE)
 			$msg = "Produit mis à jour";
@@ -58,6 +58,22 @@
 	$data_categories = get_all_category();
 	while ($row = mysqli_fetch_assoc($data_categories)) {
 		$categories[] = $row;
+	}
+
+	function ft_get_category_name($str)
+	{
+		$ids = explode(',', $str);
+		$ret = "";
+		$i = 0;
+		foreach($ids as $id)
+		{
+			$tmp = mysqli_fetch_assoc(get_category_by_id($id));
+			if ($i > 0)
+				$ret .= ", ";
+			$ret .= $tmp['category_name'];
+			$i++;
+		}
+		return ($ret);
 	}
 ?>
 <div class="content-header">
@@ -89,11 +105,7 @@
 			</div>
 			<div class="col1-4">
 				Catégorie:<br>
-				<select required="required" name="category_id">
-					<?php foreach ($categories as $row) {
-						echo "<option value='" . $row['id'] . "'>" . $row['category_name'] . "</option>";
-					} ?>
-				</select>
+				<input type="text" name="category_id" value="">
 			</div>
 			<div class="col1-2">
 				Déscription:<br>
@@ -129,14 +141,7 @@
 			</div>
 			<div class="col1-4">
 				Catégorie:<br>
-				<select required="required" name="category_id">
-					<?php foreach ($categories as $row) {
-						echo "<option ";
-						if ($product_edit['category_id'] == $row['id']) 
-							echo "selected='selected'";
-						echo "value='" . $row['id'] . "'>" . $row['category_name'] . "</option>";
-					} ?>
-				</select>
+				<input type="text" name="category_id" value="<?php echo $product_edit['category_id']; ?>">
 			</div>
 			<div class="col1-2">
 				Déscription:<br>
@@ -158,16 +163,16 @@
 	</div>
 	<div class="widget-content">
 		<table id="product-table">
-			<thead><th>Image</th><th>Nom</th><th>Déscription</th><th>Stock</th><th>Prix</th><th>Catégorie</th><th>Date d'ajout</th><th>Edit / Suppr</th></thead>
+			<thead><th>Image</th><th>Nom</th><th>Déscription</th><th>Stock</th><th>Prix</th><th>Catégories</th><th>Date d'ajout</th><th>Edit / Suppr</th></thead>
 		<?php
 			while ($row = mysqli_fetch_assoc($products)) {
 				echo "<tr>
-				<td width=50px><img alt='" . $row['product_name'] . "' src='" . $row['picture'] . "'/></td>
+				<td width=50px><img alt='" . ft_format($row['product_name']) . "' src='" . $row['picture'] . "'/></td>
 				<td>" . $row['product_name'] . "</td> 
 				<td>" . $row['product_desc'] . "</td>
 				<td>" . $row['stock'] . "</td>
 				<td>" . $row['price'] . "</td>
-				<td>" . $row['category_name'] . "</td>
+				<td>" . ft_get_category_name($row['category_id']) . "</td>
 				<td width='180px'>" . $row['date_added'] . "</td>
 				<td class=edit><a href=/admin?page=product&product_edit=".$row['id']." class=button>Editer</a>
 				<a href=/admin?page=product&product_delete=".$row['id']." class=button-red>Supprimer</a></td>

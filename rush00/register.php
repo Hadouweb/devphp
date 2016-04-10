@@ -15,6 +15,7 @@
 			$_SESSION["error"] = "";
 		}
 	?>
+	<a class="acceuil button" href="index.php">Acceuil</a>
 	<div class="gauche">
 		<form method="POST" action="create.php">
 			Identifiant
@@ -23,15 +24,15 @@
 			<br/><input type="password" name="pwd"></input><br/>
 			Confirmer Mot de passe
 			<br/><input type="password" name="pwd2"></input><br/>
-			<input type="submit" name="submit" value="creer"></input><br/>
+			<input class="button" type="submit" name="submit" value="creer"></input><br/>
 		</form>
 	</div>
 	<div class="droite">
 		<form method="POST" action="modif.php">
 			Identifiant<br/><input type="text" name="login"></input><br/>
-			Ancien mot de passe<br/><input type="password" name="oldpw"></input><br/>
-			Nouveau mot de passe<br/><input type="password" name="newpw"></input><br/>
-			<input type="submit" name="submit" value="changer mot de passe"></input>
+			Ancien mot de passe<br/><input type="password" name="pwd"></input><br/>
+			Nouveau mot de passe<br/><input type="password" name="pwd2"></input><br/>
+			<input class="button" type="submit" name="submit" value="changer mot de passe"></input>
 		</form>
 	</div>
 </div>

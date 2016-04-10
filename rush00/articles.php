@@ -4,9 +4,24 @@ include_once("./admin/functions.php");
 if (check($_GET['page']))
 {
 	$id_category = $_GET['page'];
-	$data_products = get_product_by_category($id_category);
+	$data_products = get_all_product();
 	while ($row = mysqli_fetch_assoc($data_products)) {
-		$products[] = $row;
+		$ids = explode(',', $row['category_id']);
+		foreach($ids as $id)
+		{
+			if ($id_category === $id)
+				$products[] = $row;
+		}
+	}
+	$category = mysqli_fetch_assoc(get_category_by_id($_GET['page']));
+	if (check($category))
+	{
+		?>
+		<div class="image_category">
+		<img alt="<?php echo ft_format($category['category_name']); ?>" 
+		src="<?php echo $category['picture']; ?>">
+		</div>
+		<?php
 	}
 }
 else

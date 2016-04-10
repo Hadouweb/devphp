@@ -21,6 +21,16 @@ h1{
     background: #279BE4;
     text-decoration: none;
 }
+.image_category 
+{
+  height: 250px;
+}
+.image_category img {
+  height: 100%;
+}
+td img {
+  width: 100%;
+}
 .product-panier .content {
 	width:140px;
 	float: left;
@@ -78,47 +88,60 @@ h1{
 }
 .erreur
 {
-	text-align: center;
-	position: absolute;
-	margin-top: 40vh;
-	margin-left: 35%;
-	width: 20vw;
-	height: auto;
-	border-style: solid;
-	border-color: black;
-	border-radius: 20px;
-	background-color: black;
-	color: white;
+  text-align: center;
+  position: absolute;
+  margin-top: 500px;
+  margin-left: 850px;
+  width: 200px;
+  height: auto;
+  background: rgba(231, 76, 60, 0.85);
+  height: auto;
+  margin-top: 40vh;
+  margin-left: 35%;
+  width: 2;
+  height: auto;
+  border-style: solid;
+  border-color: black;
+  background-color: black;
+  color: white;
+}
+
+.acceuil
+{
+  position: absolute;
+  margin-top: 450px;
+  margin-left: 920px;
+  color: white;
+  background: rgba(231, 76, 60, 0.85);
+  height: auto;
+  padding: 5px;
 }
 
 .gauche
 {
-	text-align: center;
-	position: absolute;
-	margin-top: 50vh;
-	margin-left: 25%;
-	width: 20vw;
-	height: auto;
-	border-style: solid;
-	border-color: black;
-	border-radius: 20px;
-	background-color: black;
-	color: white;
+  text-align: center;
+  position: absolute;
+  margin-top: 600px;
+  margin-left: 600px;
+  width: 15vw;
+  color: white;
+  background: rgba(231, 76, 60, 0.85);
+  height: auto;
+  padding: 5px;
 }
 
 .droite
 {
-	text-align: center;
-	position: absolute;
-	margin-left: 50%;
-	margin-top: 50vh;
-	width: 20vw;
-	height: auto;
-	border-style: solid;
-	border-color: black;
-	border-radius: 20px;
-	background-color: black;
-	color: white;
+  text-align: center;
+  position: absolute;
+  margin-left: 1000px;
+  margin-top: 600px;
+  width: 15vw;
+  height: auto;
+  color: white;
+  background: rgba(231, 76, 60, 0.85);
+    height: auto;
+    padding: 5px;
 }
 .box-shadow {
 box-shadow: 0px 0px 10px #000000;
@@ -158,6 +181,7 @@ img {
     margin-left: 10px;
     height: auto;
     padding: 10px;
+        min-height: 500px;
 }
 ul{
 	list-style-type: none;

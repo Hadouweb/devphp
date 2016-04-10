@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	include_once("./admin/functions.php");
-	// print_r($_SESSION);
 	if ($_SESSION["error"])
 	{
 		echo "<div class=erreur>".$_SESSION["error"]."</div>";
@@ -21,10 +20,7 @@
 			$user = get_user_by_username($tmp_user['username']);
 			$_SESSION['tmp_user'] = mysqli_fetch_assoc($user);
 			set_order($_GET['order'], 1, $_SESSION['tmp_user']['id']);
-			//debug($_SESSION['tmp_user']);
 		}
-		
-		//debug($_SESSION);
 	}
 	if (check($_GET['del_order']))
 	{
@@ -43,7 +39,6 @@
 			header("Location: /");
 		}
 	}
-	//var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html>

@@ -15,7 +15,7 @@
 			$username = $_POST["login"];
 			$pwd = hash("whirlpool", $_POST["pwd"]);
 			if (set_user("10", $username, $pwd) !== TRUE)
-				$_SESSION["error"] = "bienvenue $username";
+				$_SESSION["error"] = "bienvenue ". htmlspecialchars($username);
 			else
 				$_SESSION["error"] = "erreur sql";
 		}
