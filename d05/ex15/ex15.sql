@@ -3,4 +3,4 @@ SELECT
 FROM
   `distrib`
 WHERE
-  `telephone` LIKE "05%"
+  `telephone` LIKE "05%";
