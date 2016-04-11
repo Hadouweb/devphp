@@ -1,4 +1,4 @@
 SELECT
-  ROUND(AVG(`nbr_siege`))
+  ROUND(AVG(`nbr_siege`)) AS `moyenne`
 FROM
-  `salle`
+  `salle`;

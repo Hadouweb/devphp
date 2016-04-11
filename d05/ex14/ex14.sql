@@ -1,8 +1,10 @@
 SELECT
   `etage_salle` AS `etage`,
-  `nbr_siege` AS `sieges`
+  SUM(`nbr_siege`) AS `sieges`
 FROM
   `salle`
-ORDER BY
+GROUP BY
   `etage_salle`
-DESC
+ORDER BY 
+  SUM(`nbr_siege`) 
+DESC;

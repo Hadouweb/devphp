@@ -3,4 +3,4 @@ SELECT
 FROM
   film
 WHERE
-  duree_min <= 42
+  duree_min <= 42;

@@ -8,4 +8,4 @@ FROM
 WHERE
   YEAR(date_naissance) = 1989
 ORDER BY
-  nom
+  nom;
