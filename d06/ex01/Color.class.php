@@ -61,7 +61,7 @@ Class Color {
 
 	public function __destruct() {
 		if (self::$verbose === True)
-            print("$this destructed." . PHP_EOL);
+            printf("$this destructed." . PHP_EOL);
 		return;
 	}
 
