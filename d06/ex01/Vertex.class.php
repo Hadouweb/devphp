@@ -28,10 +28,16 @@ Class Vertex {
 	public function __construct(array $kwargs) {
 		if (array_key_exists('x', $kwargs))
 			$this->setX($kwargs['x']);
+		else
+			die("Error: no value for kwargs['x']" . PHP_EOL);
 		if (array_key_exists('y', $kwargs))
 			$this->setY($kwargs['y']);
+		else
+			die("Error: no value for kwargs['y']" . PHP_EOL);
 		if (array_key_exists('z', $kwargs))
 			$this->setZ($kwargs['z']);
+		else
+			die("Error: no value for kwargs['z']" . PHP_EOL);
 		if (array_key_exists('w', $kwargs))
 			$this->setW($kwargs['w']);
 		if (array_key_exists('color', $kwargs))

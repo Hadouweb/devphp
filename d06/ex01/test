@@ -6,24 +6,17 @@ An instance can be contructed from a X Y Z W and the Color class value:
 $blue  = new Color( array( 'red' =>   0, 'green' =>   0, 'blue' => 255 ) );
 $unitX = new Vertex( array( 'x' => 1.0, 'y' => 0.0, 'z' => 0.0, 'w' => 0.0, 'color' => $green ) );
 
-Or from distinct red, green, blue constitutives:
-new Color( array( 'red' => 255, 'green' => 255, 'blue' => 255 ) );
-
-Red, green, blue constitutives and RGB values are converted to intergers.
-Negative or > to 255 color constitutives are left as is.
+X, Y, Z, W constitutives values are converted to float.
+COLOR value is an instance of Color class.
 Any other use is undefined behaviour.
 
 The class provides the following methods :
 
-Color   add( Color $rhs );
-Adds each color constitutive and returns a new Color instance.
+Vertex   get?(); ? = X, Y, Z, W, Color
+Get value of x, y, z, w, color
 
-Color   sub( Color $rhs );
-Substracts each color constitutive and returns a new Color instance.
-
-Color   mult( $f );
-Multiplies each color constitutive by factor $f and returns a new Color
-instance.
+Vertex   get?(); ? = X, Y, Z, W, Color
+Set value of x, y, z, w, color
 ---------------------------------------------------------------------- Vertex ->
 Vertex( x: 0.00, y: 0.00, z:0.00, w:1.00, Color( red: 255, green: 255, blue: 255 ) ) constructed
 Vertex( x: 0.00, y: 0.00, z:0.00, w:1.00, Color( red: 255, green: 255, blue: 255 ) )
