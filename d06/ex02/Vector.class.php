@@ -57,6 +57,33 @@ Class Vector {
 		return $ret;
 	}
 
+	public function scalarProduct($k) {
+		$vertex = new Vertex(array(
+			'x' => $this->getX() * $k, 
+			'y' => $this->getY() * $k, 
+			'z' => $this->getZ() * $k));
+		$ret = new Vector(array('dest' => $vertex));
+		return $ret;
+	}
+
+	public function dotProduct(Vector $rhs) {
+		$ret = floatval(($this->getX() * $rhs->getX()) + ($this->getY() * $rhs->getY()) + ($this->getZ() * $rhs->getZ()));
+		return $ret;
+	}
+
+	public function cos(Vector $rhs) {
+		$ret = floatval($this->dotProduct($rhs) / ($this->magnitude() * $rhs->magnitude()));
+		return ($ret);
+	}
+
+	public function crossProduct(Vector $rhs) {
+		$x = ($this->getY() * $rhs->getZ()) - ($this->getZ() * $rhs->getY());
+		$y = ($this->getZ() * $rhs->getX()) - ($this->getX() * $rhs->getZ());
+		$z = ($this->getX() * $rhs->getY()) - ($this->getY() * $rhs->getX());
+		$rt = new Vector(array("dest" => new Vertex(array("x" => $x, "y" => $y, "z" => $z))));
+		return ($rt);
+	}
+
 	public static function doc() {
 		return file_get_contents('Vector.doc.txt') . PHP_EOL;
 	}
@@ -89,7 +116,7 @@ Class Vector {
 
 	public function __destruct() {
 		if (self::$verbose === True)
-			print("$this constructed" . PHP_EOL);
+			print("$this destructed" . PHP_EOL);
 		return;
 	}
 
