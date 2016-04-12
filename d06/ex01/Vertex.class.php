@@ -15,10 +15,10 @@ Class Vertex {
 	public function getW() { return $this->_w; }
 	public function getColor() { return $this->_color; }
 
-	public function setX( $x ) { $this->_x = $x; }
-	public function setY( $y ) { $this->_y = $y; }
-	public function setZ( $z ) { $this->_z = $z; }
-	public function setW( $w ) { $this->_w = $w; }
+	public function setX( $x ) { $this->_x = floatval($x); }
+	public function setY( $y ) { $this->_y = floatval($y); }
+	public function setZ( $z ) { $this->_z = floatval($z); }
+	public function setW( $w ) { $this->_w = floatval($w); }
 	public function setColor( Color $color ) { $this->_color = $color; }
 
 	public static function doc() {
