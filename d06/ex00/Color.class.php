@@ -54,13 +54,13 @@ Class Color {
 			if (array_key_exists('blue', $kwargs))
 				$this->blue = intval($kwargs['blue']);
 		}
-		if (self::$verbose)
+		if (self::$verbose === True)
             printf("Color( red: %3.3s, green: %3.3s, blue: %3.3s ) constructed." . PHP_EOL, $this->red, $this->green, $this->blue);
 		return;
 	}
 
 	public function __destruct() {
-		if (self::$verbose)
+		if (self::$verbose === True)
             printf("Color( red: %3.3s, green: %3.3s, blue: %3.3s ) destructed." . PHP_EOL, $this->red, $this->green, $this->blue);
 		return;
 	}
