@@ -28,5 +28,4 @@ float dotProduct(Vector $rhs) : return the scalar product of two vectors.
 float cos(Vector $rhs) : return the cos angle between the two vectors.
 
 Vector crossProduct(Vector $rhs) : return the cross product of the two vectors.
-
 ---------------------------------------------------------------------- Vector ->
