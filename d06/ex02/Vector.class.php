@@ -1,6 +1,5 @@
 <?php
 
-//require_once 'Vertex.class.php';
 
 Class Vector {
 
