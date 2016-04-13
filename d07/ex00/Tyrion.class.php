@@ -1,6 +1,6 @@
 <?php
 
-class tyrion extends Lannister {
+class Tyrion extends Lannister {
 
 	public function __construct() {
 		parent::__construct();
