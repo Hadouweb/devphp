@@ -1,0 +1,20 @@
+
+<- Vertex ----------------------------------------------------------------------
+The Vertex class handles Vertex xyzw.
+
+An instance can be contructed from a X Y Z W and the Color class value:
+$blue  = new Color( array( 'red' =>   0, 'green' =>   0, 'blue' => 255 ) );
+$unitX = new Vertex( array( 'x' => 1.0, 'y' => 0.0, 'z' => 0.0, 'w' => 0.0, 'color' => $green ) );
+
+X, Y, Z, W constitutives values are converted to float.
+COLOR value is an instance of Color class.
+Any other use is undefined behaviour.
+
+The class provides the following methods :
+
+Vertex   get?(); ? = X, Y, Z, W, Color
+Get value of x, y, z, w, color
+
+Vertex   get?(); ? = X, Y, Z, W, Color
+Set value of x, y, z, w, color
+---------------------------------------------------------------------- Vertex ->

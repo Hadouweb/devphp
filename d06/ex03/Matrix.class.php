@@ -52,47 +52,49 @@ Class Matrix {
 		else
 			return (new Vertex(['x' => $x, 'y' => $y, 'z' => $z]));
 	}
-	
-	private function _create_scale($nb) {
-		$this->_matrix[0][0] = $nb;
-		$this->_matrix[1][1] = $nb;
-		$this->_matrix[2][2] = $nb;
-		return;
-	}
-	
-	private function _create_translate(Vector $vtc) {
-		$this->_matrix[0][3] += $vtc->getX();
-		$this->_matrix[1][3] += $vtc->getY();
-		$this->_matrix[2][3] += $vtc->getZ();
-		return;
-	}
-	
-	private function _OpenGLPerspective($fov, $ratio, $near, $far) {
-		$scale = tan(deg2rad($fov * 0.5)) * $near;
-		$right = $ratio * $scale;
-		$left = -$right;
-		$top = $scale;
-		$bottom = -$top;
-		self::_OpenGLFrustrum($left, $right, $bottom, $top, $near, $far);
+
+	private function _setScaleMatrix($scale) {
+		$this->_matrix[0][0] = floatval($scale);
+		$this->_matrix[1][1] = floatval($scale);
+		$this->_matrix[2][2] = floatval($scale);
 	}
 
-	private function _OpenGLFrustrum($left, $right, $bottom, $top, $near, $far) {
-		$this->_matrix[0][0] = (2 * $near) / ($right - $left);
-		$this->_matrix[0][1] = 0;
-		$this->_matrix[0][2] = ($right + $left) / ($right - $left);
-		$this->_matrix[0][3] = 0;
-		$this->_matrix[1][0] = 0;
-		$this->_matrix[1][1] = (2 * $near) / ($top - $bottom);
-		$this->_matrix[1][2] = ($top + $bottom) / ($top - $bottom);
-		$this->_matrix[1][3] = 0;
-		$this->_matrix[2][0] = 0;
-		$this->_matrix[2][1] = 0;
-		$this->_matrix[2][2] = -(($far + $near) / ($far - $near));
-		$this->_matrix[2][3] = -((2 * $far * $near) / ($far - $near));
-		$this->_matrix[3][0] = 0;
-		$this->_matrix[3][1] = 0;
-		$this->_matrix[3][2] = -1;
-		$this->_matrix[3][3] = 0;
+	private function _setRXmatrix($angle) {
+		$this->_matrix[1][1] = cos($angle);
+		$this->_matrix[1][2] = -sin($angle);
+		$this->_matrix[2][1] = sin($angle);
+		$this->_matrix[2][2] = cos($angle);
+	}
+
+	private function _setRYmatrix($angle) {
+		$this->_matrix[0][0] = cos($angle);
+		$this->_matrix[0][2] = sin($angle);
+		$this->_matrix[2][0] = -sin($angle);
+		$this->_matrix[2][2] = cos($angle);
+	}
+
+	private function _setRZmatrix($angle) {
+		$this->_matrix[0][0] = cos($angle);
+		$this->_matrix[0][1] = -sin($angle);
+		$this->_matrix[1][0] = sin($angle);
+		$this->_matrix[1][1] = cos($angle);
+	}
+
+	private function _setTranslationMatrix(Vector $vector) {
+		$this->_matrix[0][3] += $vector->getX();
+		$this->_matrix[1][3] += $vector->getY();
+		$this->_matrix[2][3] += $vector->getZ();
+	}
+
+	private function _setProjectionMatrix($fov, $near, $far, $ratio) {
+		$tanHalfFOV = tan(deg2rad($fov) / 2.0);
+		$range = $near - $far;
+		$this->_matrix[0][0] /= ($tanHalfFOV * $ratio);
+		$this->_matrix[1][1] /= $tanHalfFOV;
+		$this->_matrix[2][2] = -((-$near - $far) / $range);
+		$this->_matrix[2][3] = (2.0 * $far * $near / $range);
+		$this->_matrix[3][2] = -1.0;
+		$this->_matrix[3][3] = 0.0;
 	}
 
 	public function __construct(array $kwargs) {
@@ -103,61 +105,41 @@ Class Matrix {
 				return;
 			if ($kwargs['preset'] === self::SCALE) {	
 				if (array_key_exists('scale', $kwargs))
-					$this->_create_scale($kwargs['scale']);
+					$this->_setScaleMatrix($scale = $kwargs['scale']);
 				else
 					die("Error: no value for kwargs['scale']" . PHP_EOL);
 			}
 			if ($kwargs['preset'] === self::RX) { 
 				if (array_key_exists('angle', $kwargs))
-				{
-					$angle = $kwargs['angle'];
-					$this->_matrix[1][1] = cos($angle);
-					$this->_matrix[1][2] = -sin($angle);
-					$this->_matrix[2][1] = sin($angle);
-					$this->_matrix[2][2] = cos($angle);
-				}
+					$this->_setRXmatrix($kwargs['angle']);
 				else
 					die("Error: no value for kwargs['angle']" . PHP_EOL);
 			}
 			if ($kwargs['preset'] === self::RY) { 
 				if (array_key_exists('angle', $kwargs))
-				{
-					$angle = $kwargs['angle'];
-					$this->_matrix[0][0] = cos($angle);
-					$this->_matrix[0][2] = sin($angle);
-					$this->_matrix[2][0] = -sin($angle);
-					$this->_matrix[2][2] = cos($angle);
-				}
+					$this->_setRYmatrix($kwargs['angle']);
 				else
 					die("Error: no value for kwargs['angle']" . PHP_EOL);
 			}
 			if ($kwargs['preset'] === self::RZ) { 
 				if (array_key_exists('angle', $kwargs))
-				{
-					$angle = $kwargs['angle'];
-					$this->_matrix[0][0] = cos($angle);
-					$this->_matrix[0][1] = -sin($angle);
-					$this->_matrix[1][0] = sin($angle);
-					$this->_matrix[1][1] = cos($angle);
-				}
+					$this->_setRZmatrix($kwargs['angle']);
 				else
 					die("Error: no value for kwargs['angle']" . PHP_EOL);
 			}
 			if ($kwargs['preset'] === self::TRANSLATION) { 
 				if (array_key_exists('vtc', $kwargs))
-					$this->_create_translate($kwargs['vtc']);
+					$this->_setTranslationMatrix($kwargs['vtc']);
 				else
 					die("Error: no value for kwargs['vtc']" . PHP_EOL);
 			}
 			if ( $kwargs['preset'] === self::PROJECTION) {
-				if (array_key_exists('fov', $kwargs) && 
-					array_key_exists('ratio', $kwargs) && 
-					array_key_exists('near', $kwargs) && 
-					array_key_exists('far', $kwargs)) {
-					$this->_OpenGLPerspective($kwargs['fov'], $kwargs['ratio'], $kwargs['near'], $kwargs['far']);
-				} else {
+				if (array_key_exists('fov', $kwargs) && array_key_exists('ratio', $kwargs) && 
+					array_key_exists('near', $kwargs) && array_key_exists('far', $kwargs))
+					$this->_setProjectionMatrix(floatval($kwargs['fov']), floatval($kwargs['near']),
+						floatval($kwargs['far']), floatval($kwargs['ratio']));
+				else
 					die("Error: no value for kwargs['fov'] or kwargs['ratio'] or kwargs['near'] or kwargs['far']" . PHP_EOL);
-				}
 			}
 		}
 		else
