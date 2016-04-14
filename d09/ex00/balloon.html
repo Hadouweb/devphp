@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ballon</title>
+</head>
+<style>
+#balloon {
+	height: 200px;
+	width: 200px;
+	background: red;
+	border-radius: 420px;
+}
+</style>
+<body>
+<div id="balloon"></div>
+</body>
+<script>
+var elem = document.getElementById('balloon');
+var count = 0;
+elem.onclick = function() {
+	var size = elem.offsetWidth + 10;
+	elem.style.width = size + "px";
+	elem.style.height = size + "px";
+	count++;
+	if (count === 3)
+		count = 0;
+	if (size > 420)
+	{
+		elem.style.width = "200px";
+		elem.style.height = "200px";
+	}
+	if (count === 0)
+		elem.style.background = "red";
+	else if (count === 1)
+		elem.style.background = "green";
+	else
+		elem.style.background = "blue";
+};
+elem.onmouseleave=function() {
+	var size = elem.offsetWidth - 5;
+	elem.style.width = size + "px";
+	elem.style.height = size + "px";
+	count++;
+	if (count === 3)
+		count = 0;
+	if (size <= 200)
+	{
+		elem.style.width = "200px";
+		elem.style.height = "200px";
+	}
+	if (count === 0)
+		elem.style.background = "red";
+	else if (count === 1)
+		elem.style.background = "green";
+	else
+		elem.style.background = "blue";
+}
+</script>
+</html>
