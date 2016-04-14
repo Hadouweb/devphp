@@ -1,6 +1,6 @@
 <?php
 
-class Fighter {
+abstract class Fighter {
 
 	private $fighterType;
 
@@ -11,6 +11,8 @@ class Fighter {
 	public function __construct($type) {
 		$this->fighterType = $type;
 	}
+
+	abstract function fight($target);
 
 }
 
