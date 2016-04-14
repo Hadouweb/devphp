@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calc</title>
+</head>
+<style>
+
+</style>
+<body>
+<input type="text" name="left" value="" />
+<select name="op">
+	<option value="+">+</option>
+	<option value="-">-</option>
+	<option value="*">*</option>
+	<option value="/">/</option>
+	<option value="%">%</option>
+</select>
+<input type="text" name="right" value="" />
+<input type="submit" name="submit" value="Try me!">
+</body>
+<script>
+var send = document.querySelector('[name=submit]');
+var left = document.querySelector('[name=left]');
+var op = document.querySelector('[name=op]');
+var right = document.querySelector('[name=right]');
+send.onclick = function() {
+	if (left.value.length > 0 && right.value.length > 0 && op.value.length === 1 &&
+	!isNaN(left.value) && !isNaN(right.value) && 
+	parseInt(left.value, 10) >= 0 && parseInt(right.value, 10) >= 0)
+	{
+		if ((op.value === "/" || op.value === "%") && parseInt(right.value, 10) === 0)
+		{
+			console.log("It's over 9000!");
+			alert("It's over 9000!");
+		}
+		else
+		{
+			var result = eval(parseInt(left.value) + op.value + parseInt(right.value));
+			console.log(result);
+			alert(result);
+		}
+	}
+	else
+		alert("Error :(");
+}
+setInterval(function() {
+	alert("Please, use me...");
+}, 30000);
+</script>
+</html>
