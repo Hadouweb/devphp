@@ -13,7 +13,7 @@ send_new.click(function() {
 
 function update(text) {
 	$("#ft_list > div").each(function () {
-		$(this).click(function() {
+		$(this).off('click').click(function() {
 			var ret = confirm('Voulez vous supprimer : ' + $(this).text());
 			if (ret === true)
 			{
