@@ -33,26 +33,27 @@ elem.onclick = function() {
 		elem.style.background = "red";
 	else if (count === 1)
 		elem.style.background = "green";
-	else
+	else if (count === 2)
 		elem.style.background = "blue";
 };
-elem.onmouseleave=function() {
+elem.onmouseleave = function() {
 	var size = elem.offsetWidth - 5;
 	elem.style.width = size + "px";
 	elem.style.height = size + "px";
-	count++;
-	if (count === 3)
-		count = 0;
+	count--;
+	if (count < 0)
+		count = 2;
 	if (size <= 200)
 	{
 		elem.style.width = "200px";
 		elem.style.height = "200px";
 	}
+	console.log(count);
 	if (count === 0)
 		elem.style.background = "red";
 	else if (count === 1)
 		elem.style.background = "green";
-	else
+	else if (count === 2)
 		elem.style.background = "blue";
 }
 </script>
