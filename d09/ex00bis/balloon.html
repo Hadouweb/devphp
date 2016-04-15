@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ballon</title>
+</head>
+<style>
+#balloon {
+	height: 200px;
+	width: 200px;
+	background: red;
+	border-radius: 420px;
+}
+</style>
+<body>
+<div id="balloon"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script>
+var count = 0;
+$('#balloon').click(function() {
+	var size = $(this).width() + 10;
+	$(this).width(size);
+	$(this).height(size);
+	count++;
+	if (count === 3)
+		count = 0;
+	if (size > 420)
+	{
+		$(this).width(200);
+		$(this).height(200);
+	}
+	if (count === 0)
+		$(this).css("background", "red");
+	else if (count === 1)
+		$(this).css("background", "green");
+	else if (count === 2)
+		$(this).css("background", "blue");
+});
+$('#balloon').mouseleave(function() {
+	var size = $(this).width() - 5;
+	$(this).width(size);
+	$(this).height(size);
+	count--;
+	if (count < 0)
+		count = 2;
+	if (size <= 200)
+	{
+		$(this).width(200);
+		$(this).height(200);
+	}
+	if (count === 0)
+		$(this).css("background", "red");
+	else if (count === 1)
+		$(this).css("background", "green");
+	else if (count === 2)
+		$(this).css("background", "blue");
+});
+</script>
+</body>
+</html>

@@ -13,7 +13,6 @@
 </style>
 <body>
 <div id="balloon"></div>
-</body>
 <script>
 var elem = document.getElementById('balloon');
 var count = 0;
@@ -48,7 +47,6 @@ elem.onmouseleave = function() {
 		elem.style.width = "200px";
 		elem.style.height = "200px";
 	}
-	console.log(count);
 	if (count === 0)
 		elem.style.background = "red";
 	else if (count === 1)
@@ -57,4 +55,5 @@ elem.onmouseleave = function() {
 		elem.style.background = "blue";
 }
 </script>
+</body>
 </html>
