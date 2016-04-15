@@ -1,33 +1,28 @@
-var send_new = document.getElementById('new');
-var todo = document.getElementById('ft_list');
+var send_new = $('#new');
+var todo = $('#ft_list');
 var data = "";
-send_new.onclick = function() {
+send_new.click(function() {
 	var ret = prompt('Saisir la nouvelle tache :');
 
 	if (ret.length > 0)
 	{
-		var div = document.createElement('div');
-		var text = document.createTextNode(ret);
-		var bdiv = todo.children[0];
-		div.appendChild(text);
-		todo.insertBefore(div, bdiv);
+		todo.prepend("<div>" + ret + "</div>");
 		update(ret);
 	}
-}
+});
 
 function update(text) {
-	var child_div = todo.getElementsByTagName('div');
-	for (key in child_div) {
-		child_div[key].onclick = function(event) {
-			var ret = confirm('Voulez vous supprimer : ' + event.target.innerText);
+	$("#ft_list > div").each(function () {
+		$(this).click(function() {
+			var ret = confirm('Voulez vous supprimer : ' + $(this).text());
 			if (ret === true)
 			{
-			    todo.removeChild(event.target);
+			    $(this).remove();
 			    data = data.replace(event.target.innerText, '');
 			    setCookie();
 			}
-		}
-	}
+		});
+	});
 	if (text != undefined)
 	{
 		if (data != "")
@@ -59,11 +54,7 @@ if (cook != undefined && cook.length > 0)
 	for (key in tab) {
 		if (tab[key].length > 0)
 		{
-			var div = document.createElement('div');
-			var text = document.createTextNode(tab[key]);
-			var bdiv = todo.children[0];
-			div.appendChild(text);
-			todo.insertBefore(div, bdiv);
+			todo.prepend("<div>" + tab[key] + "</div>");
 			update(tab[key]);
 		}
 	}

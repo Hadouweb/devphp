@@ -21,7 +21,6 @@ var left = $("input[name='left']");
 var op = $("select[name='op']");
 var right = $("input[name='right']");
 send.click(function() {
-		console.log(parseInt(left.val(), 10));
 	if (left.val() && right.val() && op.val().length === 1 &&
 	jQuery.isNumeric(left.val()) && jQuery.isNumeric(right.val()) && 
 	parseInt(left.val(), 10) >= 0 && parseInt(right.val(), 10) >= 0)
@@ -42,7 +41,7 @@ send.click(function() {
 		alert("Error :(");
 });
 setInterval(function() {
-	//alert("Please, use me...");
+	alert("Please, use me...");
 }, 30000);
 </script>
 </body>
